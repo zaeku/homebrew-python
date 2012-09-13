@@ -1,24 +1,38 @@
 require 'formula'
+# require Formula.path("numpy") # For numpy distutils check
 
 class Scipy < Formula
-  url 'http://sourceforge.net/projects/scipy/files/scipy/0.10.0/scipy-0.10.0.tar.gz'
+  url 'http://sourceforge.net/projects/scipy/files/scipy/0.11.0rc2/scipy-0.11.0rc2.tar.gz'
   homepage 'http://www.scipy.org'
-  md5 'e357c08425fd031dce63bc4905789088'
+  sha1 '174923793f49b893699f5c601c4e64537fdb07d4'
   head 'https://github.com/scipy/scipy.git'
 
-  depends_on 'nose' => :python
-  depends_on 'numpy' => :python
+  depends_on Gfortran.new
+  depends_on NoUserConfig.new
+  depends_on 'numpy'
+  depends_on 'swig' => :build
 
   def install
-    ENV.fortran
-    ENV['CC']='gcc-4.2'
-    ENV['CXX']='g++-4.2'
-    ENV['FFLAGS']='-ff2c'
-    system "python", "setup.py", "build", "--fcompiler=gfortran"
-    system "python", "setup.py", "install"
+    # This hack is no longer needed with superenv
+    # gfortran cannot link (call the linker) if LDFLAGS are set, because
+    # numpy/scipy overwrite their internal flags if this var is set. Stupid.
+    # ENV['LDFLAGS'] = nil
+
+    if build.include? 'use-openblas'
+      # For maintainers:
+      # Check which BLAS/LAPACK numpy actually uses via:
+      # xcrun otool -L Cellar/scipy/0.11.0rc2/lib/python2.7/site-packages/scipy/linalg/_flinalg.so
+      # or the other .so files.
+      ENV['ATLAS'] = "None"
+      ENV['BLAS'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
+      ENV['LAPACK'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
+    end
+
+    system "python", "setup.py", "build", "--fcompiler=gnu95"
+    system "python", "setup.py", "install", "--prefix=#{prefix}"
   end
 
   def test
-    system "python", "-c 'import scipy; scipy.test()'"
+    system "python", "-c", "import scipy; scipy.test()"
   end
 end
