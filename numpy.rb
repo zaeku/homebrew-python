@@ -76,7 +76,6 @@ class Numpy < Formula
 
       [umfpack]
       umfpack_libs = umfpack
-
     EOS
 
     Pathname('site.cfg').write config
