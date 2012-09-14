@@ -10,10 +10,10 @@ class Gfortran < Requirement
   end
 
   def message; <<-EOS.undent
-      You have to either
+      No gfortran found!
+      You have to assure a gfortran is in your PATH. You can:
         - `brew install gfortran` or
         - `brew tap homebrew/dupes && brew install gcc --enable-fortran`.
-
       The latter builts the latest gcc release from source and takes some time.
     EOS
   end
