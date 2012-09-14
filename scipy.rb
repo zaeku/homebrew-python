@@ -11,7 +11,7 @@ class Scipy < Formula
   #   sha1 'todo'
   # end
 
-  depends_on Gfortran.new
+  depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'numpy'
   depends_on 'swig' => :build

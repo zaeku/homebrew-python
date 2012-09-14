@@ -1,6 +1,6 @@
 require 'formula'
 
-class Gfortran < Requirement
+class GfortranAvailable < Requirement
   def satisfied?
     which 'gfortran' or which 'gfortran-4.7'
   end
@@ -41,7 +41,7 @@ class Numpy < Formula
   end
 
   depends_on 'nose' => :python
-  depends_on Gfortran.new
+  depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'suite-sparse'  # for libamd and libumfpack
 
