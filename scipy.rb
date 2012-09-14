@@ -1,5 +1,5 @@
 require 'formula'
-# require Formula.path("numpy") # For numpy distutils check
+require Formula.path("numpy")  # For numpy distutils and gfortran check
 
 class Scipy < Formula
   url 'http://sourceforge.net/projects/scipy/files/scipy/0.11.0rc2/scipy-0.11.0rc2.tar.gz'
@@ -12,11 +12,15 @@ class Scipy < Formula
   depends_on 'numpy'
   depends_on 'swig' => :build
 
+  option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
+
   def install
-    # This hack is no longer needed with superenv
+    # This hack is no longer needed with superenv but I leave it here because
+    # people might want to use a custom CC compiler with scipy by setting
+    # --env=std and HOMEBREW_CC:
     # gfortran cannot link (call the linker) if LDFLAGS are set, because
     # numpy/scipy overwrite their internal flags if this var is set. Stupid.
-    # ENV['LDFLAGS'] = nil
+    ENV['LDFLAGS'] = nil
 
     if build.include? 'use-openblas'
       # For maintainers:
