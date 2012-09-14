@@ -18,3 +18,4 @@ This repository contains formulae for [Homebrew](https://github.com/mxcl/homebre
 
  * `brew tap samueljohn/python`
  * `brew install scipy`
+ * `brew test scipy --verbose`
