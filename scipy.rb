@@ -6,6 +6,10 @@ class Scipy < Formula
   homepage 'http://www.scipy.org'
   sha1 '174923793f49b893699f5c601c4e64537fdb07d4'
   head 'https://github.com/scipy/scipy.git'
+  # devel do
+  #   url 'not yet but will be for 0.12'
+  #   sha1 'todo'
+  # end
 
   depends_on Gfortran.new
   depends_on NoUserConfig.new
