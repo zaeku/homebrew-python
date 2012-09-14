@@ -31,10 +31,14 @@ class NoUserConfig < Requirement
 end
 
 class Numpy < Formula
-  url 'http://sourceforge.net/projects/numpy/files/NumPy/1.6.2/numpy-1.6.20060218.tar.gz'
-  homepage 'http://www.scipy.org/'
+  url 'http://sourceforge.net/projects/numpy/files/NumPy/1.6.2/numpy-1.6.2.tar.gz'
+  homepage 'http://numpy.scipy.org'
   sha1 'c36c471f44cf914abdf37137d158bf3ffa460141'
   head 'https://github.com/numpy/numpy.git'
+  devel do
+    url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0b1/numpy-1.7.0b1.tar.gz'
+    sha1 '0a6f1455d45ab8c4c6cc07ebd80e7d3ca89ee036'
+  end
 
   depends_on 'nose' => :python
   depends_on Gfortran.new
