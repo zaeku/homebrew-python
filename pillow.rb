@@ -7,6 +7,7 @@ class Pillow < Formula
 
   depends_on 'little-cms'
   depends_on 'graphicsmagick'
+  depends_on 'freetype'
 
   def install
     # In order to install into the Cellar, the dir must exist and be in the
