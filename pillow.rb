@@ -5,9 +5,7 @@ class Pillow < Formula
   url 'https://github.com/python-imaging/Pillow/tarball/1.7.8'
   sha1 '8da50546abec3d94640a97727ba416f90b3a14af'
 
-  depends_on 'python'  # todo replace by :python in the future
-  #depends_on 'zlib'
-  depends_on 'littlecms'
+  depends_on 'little-cms'
   depends_on 'graphicsmagick'
 
   def install
@@ -19,19 +17,20 @@ class Pillow < Formula
 
     # Help pillow find zlib and little-cms
     inreplace "setup.py" do |s|
+      s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{MacOS.sdk_path}/usr/lib', '#{MacOS.sdk_path}/usr/include')" unless MacOS::CLT.installed?
       # s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{Formula.factory('zlib').opt_prefix}/lib', '#{Formula.factory('zlib').opt_prefix}/include')"
       s.gsub! "LCMS_ROOT = None", "LCMS_ROOT = ('#{Formula.factory('littlecms').opt_prefix}/lib', '#{Formula.factory('littlecms').opt_prefix}/include')"
     end
 
-   args = [
-     "--no-user-cfg",
-     "install",
-     "--force",
-     "--verbose",
-     "--single-version-externally-managed",
-     "--prefix=#{prefix}",
-     "--record=installed-files.txt"
-   ]
+    args = [
+      "--no-user-cfg",
+      "install",
+      "--force",
+      "--verbose",
+      "--single-version-externally-managed",
+      "--prefix=#{prefix}",
+      "--record=installed-files.txt"
+    ]
 
     system "python", "setup.py", *args
 
