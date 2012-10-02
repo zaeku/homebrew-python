@@ -60,6 +60,9 @@ class Numpy < Formula
   def install
     # Numpy ignores FC and FCFLAGS therefore we don't need ENV.fortran here :-(
 
+    # Allow numpy to find brewed python
+    env :userpaths
+
     if build.include? 'use-openblas'
       # For maintainers:
       # Check which BLAS/LAPACK numpy actually uses via:
