@@ -39,6 +39,10 @@ class Numpy < Formula
     url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0b1/numpy-1.7.0b1.tar.gz'
     sha1 '0a6f1455d45ab8c4c6cc07ebd80e7d3ca89ee036'
   end
+  
+
+  # Allow numpy to find brewed python
+  env :userpaths
 
   depends_on 'nose' => :python
   depends_on GfortranAvailable.new
@@ -59,9 +63,6 @@ class Numpy < Formula
 
   def install
     # Numpy ignores FC and FCFLAGS therefore we don't need ENV.fortran here :-(
-
-    # Allow numpy to find brewed python
-    env :userpaths
 
     if build.include? 'use-openblas'
       # For maintainers:
