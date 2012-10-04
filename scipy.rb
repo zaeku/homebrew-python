@@ -2,9 +2,9 @@ require 'formula'
 require Formula.path("numpy")  # For numpy distutils and gfortran check
 
 class Scipy < Formula
-  url 'http://sourceforge.net/projects/scipy/files/scipy/0.11.0rc2/scipy-0.11.0rc2.tar.gz'
+  url 'http://sourceforge.net/projects/scipy/files/scipy/0.11.0/scipy-0.11.0.tar.gz'
   homepage 'http://www.scipy.org'
-  sha1 '174923793f49b893699f5c601c4e64537fdb07d4'
+  sha1 'e8dc162cf3acf8aa4fe7aeafc0ce53cc9d0f51ed'
   head 'https://github.com/scipy/scipy.git'
   # devel do
   #   url 'not yet but will be for 0.12'
