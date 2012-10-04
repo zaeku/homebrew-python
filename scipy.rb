@@ -11,6 +11,9 @@ class Scipy < Formula
   #   sha1 'todo'
   # end
 
+  # Allow brewed python
+  env :userpaths
+  
   depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'numpy'
@@ -19,9 +22,6 @@ class Scipy < Formula
   option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
 
   def install
-    # Allow brewed python
-    env :userpaths
-
     # This hack is no longer needed with superenv but I leave it here because
     # people might want to use a custom CC compiler with scipy by setting
     # --env=std and HOMEBREW_CC:
