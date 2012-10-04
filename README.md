@@ -6,11 +6,16 @@ This repository contains formulae for [Homebrew](https://github.com/mxcl/homebre
 ## Formulae you find here
 
 * Numpy
-  - using suite-sparse (amd,umfpack)
-  - optionally link against the fast openBLAS (--use-openblas)
+    - using *suite-sparse* for fast sparse matrices (amd,umfpack)
+    - optionally link against the fast *openBLAS* (--use-openblas)
 * SciPy
-  - optionally link against the fast openBLAS (--use-openblas)
-  * PyOpenCL
+    - optionally link against the fast *openBLAS* (--use-openblas)
+* PyOpenCL
+* PIL (The *Python Image Library* in the newer distribution named "pillow")
+    - Support for zlib/PNG
+    - Based on the fast(er) *graphicsmagick* (imagemagick compatible)
+    - *Freetype2* support
+    - *Little-CMS* (for color management)
 * _Open an issue if your favorite is missing_
 
 

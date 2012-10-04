@@ -13,7 +13,7 @@ class Scipy < Formula
 
   # Allow brewed python
   env :userpaths
-  
+
   depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'numpy'
@@ -25,6 +25,7 @@ class Scipy < Formula
     # This hack is no longer needed with superenv but I leave it here because
     # people might want to use a custom CC compiler with scipy by setting
     # --env=std and HOMEBREW_CC:
+
     # gfortran cannot link (call the linker) if LDFLAGS are set, because
     # numpy/scipy overwrite their internal flags if this var is set. Stupid.
     ENV['LDFLAGS'] = nil
