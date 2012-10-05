@@ -16,20 +16,19 @@ class Pillow < Formula
     mkdir_p temp_site_packages
     ENV['PYTHONPATH'] = temp_site_packages
 
-    # Help pillow find zlib and little-cms
+    # Help pillow find little-cms
     inreplace "setup.py" do |s|
       s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{MacOS.sdk_path}/usr/lib', '#{MacOS.sdk_path}/usr/include')" unless MacOS::CLT.installed?
-      # s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{Formula.factory('zlib').opt_prefix}/lib', '#{Formula.factory('zlib').opt_prefix}/include')"
       s.gsub! "LCMS_ROOT = None", "LCMS_ROOT = ('#{Formula.factory('littlecms').opt_prefix}/lib', '#{Formula.factory('littlecms').opt_prefix}/include')"
     end
 
     args = [
-      "--no-user-cfg",
       "install",
       "--force",
       "--verbose",
       "--single-version-externally-managed",
-      "--prefix=#{prefix}",
+      "--install-scripts=#{prefix}/share/python",
+      "--install-lib=#{temp_site_packages}",
       "--record=installed-files.txt"
     ]
 
