@@ -40,7 +40,6 @@ class Numpy < Formula
     sha1 '0a6f1455d45ab8c4c6cc07ebd80e7d3ca89ee036'
   end
   
-
   # Allow numpy to find brewed python
   env :userpaths
 
