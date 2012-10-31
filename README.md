@@ -10,7 +10,7 @@ This repository contains formulae for [Homebrew](https://github.com/mxcl/homebre
     - optionally link against the fast *openBLAS* (--use-openblas)
 * SciPy
     - optionally link against the fast *openBLAS* (--use-openblas)
-* PIL (The *Python Image Library* in the newer distribution named "pillow")
+* PIL (The *Python Image Library* in the newer distribution named "pillow", so `brew install pillow`)
     - Support for zlib/PNG
     - Based on the fast(er) *graphicsmagick* (imagemagick compatible)
     - *Freetype2* support
