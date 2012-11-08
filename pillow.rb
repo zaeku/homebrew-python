@@ -3,7 +3,8 @@ require 'formula'
 class Pillow < Formula
   homepage 'https://github.com/python-imaging/Pillow'
   url 'https://github.com/python-imaging/Pillow/tarball/1.7.8'
-  sha1 '8da50546abec3d94640a97727ba416f90b3a14af'
+  sha1 '7dbdb96fc831425e89dacfa0a9289e3ed56d290e'
+  head 'https://github.com/python-imaging/Pillow.git'
 
   depends_on 'little-cms'
   depends_on 'graphicsmagick'
