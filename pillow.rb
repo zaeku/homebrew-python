@@ -2,8 +2,8 @@ require 'formula'
 
 class Pillow < Formula
   homepage 'https://github.com/python-imaging/Pillow'
-  url 'https://github.com/python-imaging/Pillow/tarball/1.7.8'
-  sha1 '7dbdb96fc831425e89dacfa0a9289e3ed56d290e'
+  url 'http://pypi.python.org/packages/source/P/Pillow/Pillow-1.7.8.zip'
+  sha1 '1afa1b74f84957015689d4344b3453a5c0c348aa'
   head 'https://github.com/python-imaging/Pillow.git'
 
   depends_on 'little-cms'
