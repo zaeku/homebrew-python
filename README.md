@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains formulae for [Homebrew](https://github.com/mxcl/homebrew) with a special focus on **Python** libraries not yet well supported by `pip install x` due to compilation and dependency issues.
+This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew/) with a special focus on **Python** libraries not yet well supported by `pip install x` due to compilation and dependency issues.
 
 
 ## Formulae you find here
