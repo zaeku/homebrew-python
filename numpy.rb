@@ -10,11 +10,8 @@ class GfortranAvailable < Requirement
   end
 
   def message; <<-EOS.undent
-      No gfortran found!
-      You have to assure a gfortran is in your PATH. You can:
-        - `brew install gfortran` or
-        - `brew tap homebrew/dupes && brew install gcc --enable-fortran`.
-      The latter builds the latest gcc release from source (takes some time).
+      No gfortran found! You may use gfortran provided by homebrew:
+        - `brew install gfortran`
     EOS
   end
 end
@@ -36,23 +33,18 @@ class Numpy < Formula
   sha1 'c36c471f44cf914abdf37137d158bf3ffa460141'
   head 'https://github.com/numpy/numpy.git'
   devel do
-    url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0b1/numpy-1.7.0b1.tar.gz'
-    sha1 '0a6f1455d45ab8c4c6cc07ebd80e7d3ca89ee036'
+    url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0b2/numpy-1.7.0b2.tar.gz'
+    sha1 '1c40bfeda1754365bfc3da024ea5afd32adfafb4'
   end
-
-  # Allow numpy to find brewed python
-  env :userpaths
 
   depends_on 'nose' => :python
   depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'suite-sparse'  # for libamd and libumfpack
 
-  # temporary use staticfloat's openblas until it has been pulled into homebrew/science
-  # depends_on 'openblas' if build.include? 'use-openblas'
-  depends_on "staticfloat/julia/openblas" if build.include? 'use-openblas'
+  depends_on "openblas" if build.include? 'openblas'
 
-  option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
+  option 'openblas', "Use openBLAS instead of Apple's Accelerate Framework"
 
   def patches
     # Help numpy/distutils find homebrew's versioned gfortran-4.7 executable,
@@ -61,18 +53,13 @@ class Numpy < Formula
   end
 
   def install
-    # Numpy ignores FC and FCFLAGS therefore we don't need ENV.fortran here :-(
-
-    if build.include? 'use-openblas'
-      # For maintainers:
-      # Check which BLAS/LAPACK numpy actually uses via:
-      # xcrun otool -L Cellar/numpy/1.6.2/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so
-      ENV['ATLAS'] = "None"
-      ENV['BLAS'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
-      ENV['LAPACK'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
-    end
+    # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
+    ENV.fortran
 
     # Numpy is configured via a site.cfg and we want to use some libs
+    # For maintainers:
+    # Check which BLAS/LAPACK numpy actually uses via:
+    # xcrun otool -L /usr/local/Cellar/numpy/1.6.2/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so
     config = <<-EOS.undent
       [DEFAULT]
       library_dirs = #{HOMEBREW_PREFIX}/lib
@@ -83,17 +70,61 @@ class Numpy < Formula
 
       [umfpack]
       umfpack_libs = umfpack
+
     EOS
+    
+    if build.include? 'openblas'
+      openblas_dir = Formula.factory('openblas').opt_prefix
+      # Setting ATLAS to None is important to prevent numpy from always
+      # linking against Accelerate.framework.
+      ENV['ATLAS'] = "None"
+      ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
+
+      config << <<-EOS.undent
+        [blas_opt]
+        libraries = openblas
+        library_dirs = #{openblas_dir}/lib
+        include_dirs = #{openblas_dir}/include
+
+        [lapack_opt]
+        libraries = openblas
+        library_dirs = #{openblas_dir}/lib
+        include_dirs = #{openblas_dir}/include
+      EOS
+    end
 
     Pathname('site.cfg').write config
+    puts config  # just for to debug
 
-    # gfortran is gnu95
-    system "python", "setup.py", "build", "--fcompiler=gnu95"
-    system "python", "setup.py", "install", "--prefix=#{prefix}"
+    # In order to install into the Cellar, the dir must exist and be in the
+    # PYTHONPATH.
+    temp_site_packages = lib/which_python/'site-packages'
+    mkdir_p temp_site_packages
+    ENV['PYTHONPATH'] = temp_site_packages
+
+    args = [
+      "--no-user-cfg",
+      "--verbose",
+      "build",
+      "--fcompiler=gnu95", # gfortran is gnu95
+      "install",
+      "--force",
+      "--install-scripts=#{share}/python",
+      "--install-lib=#{temp_site_packages}",
+      "--install-data=#{share}",
+      "--install-headers=#{include}",
+      "--record=installed-files.txt"
+    ]
+
+    system "python", "-s", "setup.py", *args
   end
 
   def test
     system "python", "-c", "import numpy; numpy.test()"
+  end
+
+  def which_python
+    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
   end
 end
 
