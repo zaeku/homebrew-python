@@ -11,40 +11,56 @@ class Scipy < Formula
   #   sha1 'todo'
   # end
 
-  # Allow brewed python
-  env :userpaths
-
   depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
   depends_on 'numpy'
   depends_on 'swig' => :build
 
-  option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
+  option 'openblas', "Use openBLAS instead of Apple's Accelerate Framework"
 
   def install
-    # This hack is no longer needed with superenv but I leave it here because
-    # people might want to use a custom CC compiler with scipy by setting
-    # --env=std and HOMEBREW_CC:
+    ENV.fortran
 
-    # gfortran cannot link (call the linker) if LDFLAGS are set, because
-    # numpy/scipy overwrite their internal flags if this var is set. Stupid.
-    ENV['LDFLAGS'] = nil
-
-    if build.include? 'use-openblas'
+    if build.include? 'openblas'
       # For maintainers:
       # Check which BLAS/LAPACK numpy actually uses via:
-      # xcrun otool -L Cellar/scipy/0.11.0rc2/lib/python2.7/site-packages/scipy/linalg/_flinalg.so
+      # xcrun otool -L Cellar/scipy/0.11.0/lib/python2.7/site-packages/scipy/linalg/_flinalg.so
       # or the other .so files.
+      openblas_dir = Formula.factory('openblas').opt_prefix
+      # Setting ATLAS to None is important to prevent numpy from always
+      # linking against Accelerate.framework.
       ENV['ATLAS'] = "None"
-      ENV['BLAS'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
-      ENV['LAPACK'] = "#{Formula.factory('staticfloat/julia/openblas').lib}/libopenblas.dylib"
+      ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
     end
 
-    system "python", "setup.py", "build", "--fcompiler=gnu95"
-    system "python", "setup.py", "install", "--prefix=#{prefix}"
+    # In order to install into the Cellar, the dir must exist and be in the
+    # PYTHONPATH.
+    temp_site_packages = lib/which_python/'site-packages'
+    mkdir_p temp_site_packages
+    ENV['PYTHONPATH'] = temp_site_packages
+
+    args = [
+      "--no-user-cfg",
+      "--verbose",
+      "build",
+      "--fcompiler=gnu95", # gfortran is gnu95
+      "install",
+      "--force",
+      "--install-scripts=#{share}/python",
+      "--install-lib=#{temp_site_packages}",
+      "--install-data=#{share}",
+      "--install-headers=#{include}",
+      "--record=installed-files.txt"
+    ]
+
+    system "python", "-s", "setup.py", *args
   end
 
   def test
     system "python", "-c", "import scipy; scipy.test()"
+  end
+
+  def which_python
+    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
   end
 end
