@@ -17,26 +17,34 @@ class Pillow < Formula
     mkdir_p temp_site_packages
     ENV['PYTHONPATH'] = temp_site_packages
 
-    # Help pillow find little-cms
+    # Help pillow find zlib and little-cms (Note freetype2 is detected correctly)
     inreplace "setup.py" do |s|
       s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{MacOS.sdk_path}/usr/lib', '#{MacOS.sdk_path}/usr/include')" unless MacOS::CLT.installed?
       s.gsub! "LCMS_ROOT = None", "LCMS_ROOT = ('#{Formula.factory('littlecms').opt_prefix}/lib', '#{Formula.factory('littlecms').opt_prefix}/include')"
     end
 
     args = [
+      "--no-user-cfg",
+      "--verbose",
       "install",
       "--force",
-      "--verbose",
       "--single-version-externally-managed",
       "--install-scripts=#{prefix}/share/python",
       "--install-lib=#{temp_site_packages}",
+      "--install-data=#{share}",
+      "--install-headers=#{include}",
       "--record=installed-files.txt"
     ]
-
-    system "python", "setup.py", *args
+    system "python", "-s", "setup.py", *args
 
     # Move the installed-files.txt into the .egg-info dir so pip can uninstall
     mv 'installed-files.txt', Dir["#{temp_site_packages}/*.egg-info"].first
+
+  end
+
+  def test
+    # Only a small test until https://github.com/python-imaging/Pillow/issues/17
+    system "python", "-c", "import PIL"
   end
 
   def which_python
