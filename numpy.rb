@@ -42,8 +42,8 @@ class Numpy < Formula
   depends_on NoUserConfig.new
   depends_on 'suite-sparse'  # for libamd and libumfpack
 
-  option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
-  depends_on "openblas" if build.include? 'use-openblas'
+  option 'with-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
+  depends_on "openblas" if build.include? 'with-openblas'
 
   def patches
     # Help numpy/distutils find homebrew's versioned gfortran-4.7 executable,
@@ -72,7 +72,7 @@ class Numpy < Formula
 
     EOS
     
-    if build.include? 'use-openblas'
+    if build.include? 'with-openblas'
       openblas_dir = Formula.factory('openblas').opt_prefix
       # Setting ATLAS to None is important to prevent numpy from always
       # linking against Accelerate.framework.

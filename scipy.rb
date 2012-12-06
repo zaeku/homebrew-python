@@ -16,13 +16,13 @@ class Scipy < Formula
   depends_on 'numpy'
   depends_on 'swig' => :build
 
-  option 'use-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
-  depends_on 'openblas' if build.include? 'use-openblas'
+  option 'with-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
+  depends_on 'openblas' if build.include? 'with-openblas'
 
   def install
     ENV.fortran
 
-    if build.include? 'use-openblas'
+    if build.include? 'with-openblas'
       # For maintainers:
       # Check which BLAS/LAPACK numpy actually uses via:
       # xcrun otool -L /usr/local/Cellar/scipy/0.11.0/lib/python2.7/site-packages/scipy/linalg/_flinalg.so
