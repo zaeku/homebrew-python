@@ -29,7 +29,7 @@ class Pillow < Formula
       "install",
       "--force",
       "--single-version-externally-managed",
-      "--install-scripts=#{prefix}/share/python",
+      "--install-scripts=#{share}/python",
       "--install-lib=#{temp_site_packages}",
       "--install-data=#{share}",
       "--install-headers=#{include}",
