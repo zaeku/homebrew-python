@@ -93,7 +93,6 @@ class Numpy < Formula
     end
 
     Pathname('site.cfg').write config
-    puts config  # just for to debug
 
     # In order to install into the Cellar, the dir must exist and be in the
     # PYTHONPATH.
