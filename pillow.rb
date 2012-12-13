@@ -6,6 +6,9 @@ class Pillow < Formula
   sha1 '1afa1b74f84957015689d4344b3453a5c0c348aa'
   head 'https://github.com/python-imaging/Pillow.git'
 
+  conflicts_with 'pil',
+    :because => 'both install the same "PIL" module but Pillow is the better maintained distribution for PIL.'
+
   depends_on 'little-cms'
   depends_on 'graphicsmagick'
   depends_on 'freetype'
