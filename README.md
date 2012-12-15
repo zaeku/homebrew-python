@@ -15,6 +15,7 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
     - Based on the fast(er) *graphicsmagick* (imagemagick compatible)
     - *Freetype2* support
     - *Little-CMS* (for color management)
+* PyGame (Game development and provides bindings to SDL)
 * _Open an issue if your favorite is missing_
 
 
