@@ -5,17 +5,20 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
 
 ## Formulae you find here
 
-* Numpy
+* **Numpy**
     - using *suite-sparse* for fast sparse matrices (amd,umfpack)
     - optionally link against the *openBLAS* (--with-openblas)
-* SciPy
+* **SciPy**
     - optionally link against the *openBLAS* (--with-openblas)
-* PIL (The *Python Image Library* in the newer distribution named "pillow", so `brew install pillow`)
+* **PIL** (`brew install pillow`)
+    - The *Python Image Library* in the newer distribution named "pillow"
     - Support for zlib/PNG
     - Based on the fast(er) *graphicsmagick* (imagemagick compatible)
     - *Freetype2* support
     - *Little-CMS* (for color management)
-* PyGame (Game development and provides bindings to SDL)
+* **PyGame** (Game development and provides bindings to SDL)
+* **Pmw** (Python Megawidgets)
+    - A dead project, but its not in PyPI, so we have it here.
 * _Open an issue if your favorite is missing_
 
 
