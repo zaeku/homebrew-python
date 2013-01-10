@@ -8,8 +8,10 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
 *   **Numpy**
     -   using *suite-sparse* for fast sparse matrices (amd,umfpack)
     -   optionally link against the *openBLAS* (--with-openblas)
+    -   use `--devel` or `--HEAD` to get the latest greatest.
 *   **SciPy**
     -   optionally link against the *openBLAS* (--with-openblas)
+    -   If you want, turn around your `--HEAD`
 *   **Matplotlib**
     -   Support all optional deps, installable by brew
         (e.g. PyGTK, cairo, ghostscript, tk, freetype and libpng)
