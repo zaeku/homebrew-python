@@ -2,7 +2,6 @@ require 'formula'
 
 # Todo: Install examples, run test
 # todo: What about sdl_gfx?
-# depends_on jpeg and libpng?
 # todo: depends_on :x11 ???
 
 class Pygame < Formula
@@ -16,6 +15,8 @@ class Pygame < Formula
   depends_on 'sdl_mixer'
   depends_on 'sdl_ttf'
   depends_on 'smpeg'
+  depends_on 'jpeg'
+  depends_on 'libpng'
   depends_on 'portmidi'
   depends_on 'numpy'
 
