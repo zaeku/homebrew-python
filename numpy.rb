@@ -33,8 +33,8 @@ class Numpy < Formula
   sha1 'c36c471f44cf914abdf37137d158bf3ffa460141'
   head 'https://github.com/numpy/numpy.git'
   devel do
-    url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0b2/numpy-1.7.0b2.tar.gz'
-    sha1 '1c40bfeda1754365bfc3da024ea5afd32adfafb4'
+    url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0rc1/numpy-1.7.0rc1.tar.gz'
+    sha1 'a41d7af7a949782a157fa16388f6cba7cf12fc6b'
   end
 
   depends_on 'nose' => :python
