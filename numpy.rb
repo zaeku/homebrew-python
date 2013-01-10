@@ -71,7 +71,7 @@ class Numpy < Formula
       umfpack_libs = umfpack
 
     EOS
-    
+
     if build.include? 'with-openblas'
       openblas_dir = Formula.factory('openblas').opt_prefix
       # Setting ATLAS to None is important to prevent numpy from always
