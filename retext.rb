@@ -1,16 +1,21 @@
 require 'formula'
 
+class RetextIcons < Formula
+  url 'http://sourceforge.net/projects/retext/files/Icons/ReTextIcons_r3.tar.gz'
+  sha1 'c51d4a687c21b7de3fd24a14a7ae16e9b0869e31'
+end
+
 class Retext < Formula
   homepage 'http://sourceforge.net/projects/retext/'
-  url 'http://sourceforge.net/projects/retext/files/ReText-4.0/ReText-4.0.0.tar.gz/download'
+  url 'http://sourceforge.net/projects/retext/files/ReText-4.0/ReText-4.0.0.tar.gz'
   sha1 '4a2ada905d790b4d8f3709271945008f50cd4d06'
 
   depends_on 'pyqt'
   depends_on 'markups' => :python
   depends_on 'markdown2' => :python
   depends_on 'docutils' => :python
-  depends_on 'enchant' => :python
   depends_on 'enchant'
+  depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
 
   def install
     # In order to install into the Cellar, the dir must exist and be in the
@@ -24,19 +29,28 @@ class Retext < Formula
       "--verbose",
       "install",
       "--force",
-      "--install-scripts=#{share}/python",
+      "--install-scripts=#{bin}",
       "--install-lib=#{temp_site_packages}",
       "--install-data=#{share}",
       "--install-headers=#{include}",
     ]
     system "python", "-s", "setup.py", *args
+
+    # Copy icons to correct place an fix the path
+    icons_dir = lib/which_python/'site-packages/ReText/icons/'
+    RetextIcons.new.brew { icons_dir.install Dir['*.*'] }
+    inreplace lib/which_python/'site-packages/ReText/__init__.py',
+              'icon_path = "icons/"',
+              "icon_path = '#{lib/which_python}/site-packages/ReText/icons/'"
   end
 
-  def test
-    # This test will fail and we won't accept that! It's enough to just replace
-    # "false" with the main program this formula installs, but it'd be nice if you
-    # were more thorough. Run the test with `brew test retext`.
-    system "false"
+  def caveats
+    <<-EOS.undent
+      ReText needs "pyenchant", which in turn needs enchant.
+      So please first `brew install enchant` and then `pip install pyenchant`.
+
+      Run ReText by typing `retext.py`
+    EOS
   end
 
   def which_python
