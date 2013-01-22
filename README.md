@@ -24,6 +24,9 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
 *   **PyGame** (Game development and provides bindings to SDL)
 *   **Pmw** (Python Megawidgets)
     -   A dead project, but its not in PyPI, so we have it here.
+*   **ReText** (Markdown Editor)
+    -   Supports enchant. (You first need to `brew install enchant`)
+    -   Some deps have to be installed via pip (it will tell you so)
 *   _Open an issue if your favorite is missing_
 
 
