@@ -121,6 +121,10 @@ class Numpy < Formula
     system "python", "-c", "import numpy; numpy.test()"
   end
 
+  def caveats
+    'Numpy ignores the `FC` env var and looks for gfortran during build.'
+  end
+
   def which_python
     "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
   end
