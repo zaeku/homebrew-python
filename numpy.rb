@@ -11,7 +11,7 @@ class GfortranAvailable < Requirement
 
   def message; <<-EOS.undent
       No gfortran found! You may use gfortran provided by homebrew:
-        - `brew install gfortran`
+        `brew install gfortran`
     EOS
   end
 end
@@ -136,7 +136,7 @@ index e80a417..15d164b 100644
      #       GNU Fortran (GCC) 4.3.0 20070316 (experimental)
  
 -    possible_executables = ['gfortran', 'f95']
-+    possible_executables = ['gfortran-4.7', 'f95', 'gfortran']
++    possible_executables = ['gfortran', 'gfortran-4.7']
      executables = {
          'version_cmd'  : ["<F90>", "--version"],
          'compiler_f77' : [None, "-Wall", "-ffixed-form",
