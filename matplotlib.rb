@@ -98,7 +98,7 @@ class Matplotlib < Formula
     EOS
   end
 
-  def test
+  test do
     ohai "This test takes quite a while. Use --verbose to see progress."
     system "python", "-c", "import matplotlib as m; m.test()"
   end
