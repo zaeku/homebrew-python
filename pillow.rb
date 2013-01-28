@@ -12,6 +12,8 @@ class Pillow < Formula
   depends_on 'little-cms'
   depends_on 'graphicsmagick'
   depends_on 'freetype'
+  depends_on 'jpeg'
+  depends_on 'libtiff'
 
   def install
     # In order to install into the Cellar, the dir must exist and be in the
@@ -24,6 +26,9 @@ class Pillow < Formula
     inreplace "setup.py" do |s|
       s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{MacOS.sdk_path}/usr/lib', '#{MacOS.sdk_path}/usr/include')" unless MacOS::CLT.installed?
       s.gsub! "LCMS_ROOT = None", "LCMS_ROOT = ('#{Formula.factory('littlecms').opt_prefix}/lib', '#{Formula.factory('littlecms').opt_prefix}/include')"
+      s.gsub! "JPEG_ROOT = None", "JPEG_ROOT = ('#{Formula.factory('jpeg').opt_prefix}/lib', '#{Formula.factory('jpeg').opt_prefix}/include')"
+      s.gsub! "TIFF_ROOT = None", "TIFF_ROOT = ('#{Formula.factory('libtiff').opt_prefix}/lib', '#{Formula.factory('libtiff').opt_prefix}/include')"
+      s.gsub! "FREETYPE_ROOT = None", "FREETYPE_ROOT = ('#{Formula.factory('freetype').opt_prefix}/lib', '#{Formula.factory('freetype').opt_prefix}/include')"
     end
 
     args = [
@@ -32,16 +37,10 @@ class Pillow < Formula
       "install",
       "--force",
       "--single-version-externally-managed",
-      "--install-scripts=#{share}/python",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
+      "--prefix=#{prefix}",
       "--record=installed-files.txt"
     ]
     system "python", "-s", "setup.py", *args
-
-    # Move the installed-files.txt into the .egg-info dir so pip can uninstall
-    mv 'installed-files.txt', Dir["#{temp_site_packages}/*.egg-info"].first
 
   end
 
