@@ -53,14 +53,20 @@ class Matplotlib < Formula
   depends_on 'pyqt' if build.include? 'with-pyqt'
   depends_on 'pygtk' if build.include? 'with-pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
-  depends_on 'tk' if build.include?('with-brewed-tk') || !MacOS::CLT.installed?
+  depends_on 'homebrew/dupes/tk' if build.include?('with-brewed-tk')
 
   def install
-
     # Tell matplotlib, where brew is installed
     inreplace "setupext.py",
               "'darwin' : ['/usr/local/', '/usr', '/usr/X11', '/opt/local'],",
               "'darwin' : ['#{HOMEBREW_PREFIX}', '/usr', '/usr/X11', '/opt/local'],"
+
+    # Apple has the Frameworks (esp. Tk.Framework) in a different place
+    unless MacOS::CLT.installed?
+      inreplace "setupext.py",
+                "'/System/Library/Frameworks/',",
+                "'#{MacOS.sdk_path}/System/Library/Frameworks',"
+    end
 
     # In order to install into the Cellar, the dir must exist and be in the
     # PYTHONPATH.
