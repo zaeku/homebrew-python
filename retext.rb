@@ -8,11 +8,12 @@ end
 class Retext < Formula
   homepage 'http://sourceforge.net/projects/retext/'
   url 'http://sourceforge.net/projects/retext/files/ReText-4.0/ReText-4.0.0.tar.gz'
+  # 4.1 will drop python 2.x support!
   sha1 '4a2ada905d790b4d8f3709271945008f50cd4d06'
 
   depends_on 'pyqt'
   depends_on 'markups' => :python
-  depends_on 'markdown2' => :python
+  depends_on 'Markdown' => :python
   depends_on 'docutils' => :python
   depends_on 'enchant'
   depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
