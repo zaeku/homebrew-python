@@ -2,6 +2,7 @@
 
 This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew/) with a special focus on **Python** libraries not yet well supported by `pip install x` due to compilation and dependency issues.
 
+***!! attention, numpy and scipy will soon move to homebrew/science !!***
 
 ## Formulae you find here ##
 
@@ -23,7 +24,7 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
     -   *Little-CMS* (for color management)
 *   **PyGame** (Game development and provides bindings to SDL)
 *   **Pmw** (Python Megawidgets)
-    -   A dead project, but its not in PyPI, so we have it here.
+    --> moved to homebrew/science (because PyMol needs it)
 *   **ReText** (Markdown Editor)
     -   Supports enchant. (You first need to `brew install enchant`)
     -   Some deps have to be installed via pip (it will tell you so)
