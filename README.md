@@ -52,7 +52,7 @@ Read more aboute [Homebrew and Python][1]
 *   Software has to be maintained and alive
     -   No updates in the last five years -> I consider it dead.
 *   Not your own little Python modules. Try to get them into PyPi first.
-*   A simple `pip intall <x>` has to fail either
+*   A simple `pip install <x>` has to fail either
     -   because it needs other software to be brewed first, or
     -   because it builds C-extensions that need special treatment
         (gfortran,lapack)
