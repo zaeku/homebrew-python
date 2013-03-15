@@ -60,7 +60,7 @@ class Pygame < Formula
     end
 
     # Manually append what is the default for PyGame on the Mac
-    system "cat Setup_darwin.in >> Setup"
+    system "cat Setup_Darwin.in >> Setup"
 
     args = [
       "--no-user-cfg",
