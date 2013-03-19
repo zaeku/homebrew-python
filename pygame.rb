@@ -10,6 +10,7 @@ class Pygame < Formula
   sha1 'a45aeb0623e36ae7a1707b5f41ee6274f72ca4fa'
   head 'https://bitbucket.org/pygame/pygame', :using => :hg
 
+  depends_on :python
   depends_on 'sdl'
   depends_on 'sdl_image'
   depends_on 'sdl_mixer'
@@ -29,12 +30,6 @@ class Pygame < Formula
   end
 
   def install
-    # In order to install into the Cellar, the dir must exist and be in the
-    # PYTHONPATH.
-    temp_site_packages = lib/which_python/'site-packages'
-    mkdir_p temp_site_packages
-    ENV['PYTHONPATH'] = temp_site_packages
-
     # We provide a "Setup" file based on the "Setup.in" because the detection
     # code in config.py does not know about the HOMEBREW_PREFIX, assumes SDL
     # is built as a framework and cannot find the Frameworks inside of Xcode.
@@ -62,24 +57,13 @@ class Pygame < Formula
     # Manually append what is the default for PyGame on the Mac
     system "cat Setup_Darwin.in >> Setup"
 
-    args = [
-      "--no-user-cfg",
-      "--verbose",
-      "install",
-      "--force",
-      "--install-scripts=#{share}/python",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
-    ]
-    system "python", "-s", "setup.py", *args
+    python do
+      system python.binary, "setup.py", "install", "--prefix=#{prefix}"
+    end
   end
 
   def test
     raise 'no test yet'
   end
 
-  def which_python
-    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
-  end
 end

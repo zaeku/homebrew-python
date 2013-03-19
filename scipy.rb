@@ -7,12 +7,14 @@ class Scipy < Formula
   sha1 '1ba2e2fc49ba321f62d6f78a5351336ed2509af3'
   head 'https://github.com/scipy/scipy.git'
   # devel do
-  #   url 'not yet but will be for 0.12'
+  #   url 'not yet but will be for 0.13'
   #   sha1 'todo'
   # end
 
-  depends_on GfortranAvailable.new
-  depends_on NoUserConfig.new
+  depends_on :python => :recommended
+  depends_on :python3 => :optional
+  depends_on GfortranAvailable
+  depends_on NoUserConfig
   depends_on 'numpy'
   depends_on 'swig' => :build
 
@@ -20,8 +22,6 @@ class Scipy < Formula
   depends_on 'homebrew/science/openblas' => :optional
 
   def install
-    ENV.fortran
-
     if build.with? 'openblas'
       # For maintainers:
       # Check which BLAS/LAPACK numpy actually uses via:
@@ -34,34 +34,21 @@ class Scipy < Formula
       ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
     end
 
-    # In order to install into the Cellar, the dir must exist and be in the
-    # PYTHONPATH.
-    temp_site_packages = lib/which_python/'site-packages'
-    mkdir_p temp_site_packages
-    ENV['PYTHONPATH'] = temp_site_packages
-
-    args = [
-      "--no-user-cfg",
-      "--verbose",
-      "build",
-      "--fcompiler=gnu95", # gfortran is gnu95
-      "install",
-      "--force",
-      "--install-scripts=#{share}/python",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
-      "--record=installed-files.txt"
-    ]
-
-    system "python", "-s", "setup.py", *args
+    python do
+      # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
+      ENV.fortran
+      # gfortran is gnu95
+      system python.binary, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    end
   end
 
   def test
-    system "python", "-c", "import scipy; scipy.test()"
+    python do
+      system python.binary, "-c", "import scipy; scipy.test()"
+    end
   end
 
-  def which_python
-    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
+  def caveats
+    python.standard_caveats
   end
 end

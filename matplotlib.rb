@@ -1,19 +1,5 @@
 require 'formula'
 
-class NumpyRequirement < Requirement
-  fatal true
-
-  def satisfied?
-    system("python", "-c", "import numpy")
-  end
-
-  def message; <<-EOS.undent
-    Numpy is needed for matplotlib:
-        brew install numpy
-    EOS
-  end
-end
-
 class TexRequirement < Requirement
   fatal false
   env :userpaths
@@ -35,25 +21,19 @@ class Matplotlib < Formula
   sha1 '82fc44d0047a713c1b0b1b4ea2503e6a41c57f98'
   head 'https://github.com/matplotlib/matplotlib.git'
 
-  option 'with-pyside', 'Build with PySide (Qt) backend'
-  option 'with-pyqt', 'Build with the older PyQt backend'
-  option 'with-gtk', 'Build with PyGTK backend'
-  option 'with-wx', 'Build with WxWidgets backend'
-  option 'with-brewed-tk', 'Use the newer Tkinter from homebrew and not from OS X'
-
+  depends_on :python
+  # depends_on :python3 => :optional # todo ... 
   depends_on :freetype
   depends_on :libpng
-  # Because `depends_on 'numpy' => :python` would suggest to `pip install numpy`
-  # that fails to build, we use our requirement to suggest `brew install numpy`:
-  depends_on NumpyRequirement.new
-  depends_on TexRequirement.new
+  depends_on 'numpy'
+  depends_on TexRequirement
   depends_on 'cairo' => :optional
   depends_on 'ghostscript' => :optional
-  depends_on 'pyside' if build.include? 'with-pyside'
-  depends_on 'pyqt' if build.include? 'with-pyqt'
-  depends_on 'pygtk' if build.include? 'with-pygtk'
+  depends_on 'pyside' => :optional
+  depends_on 'pyqt' => :optional
+  depends_on 'pygtk' => :optional
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
-  depends_on 'homebrew/dupes/tk' if build.include?('with-brewed-tk')
+  depends_on 'homebrew/dupes/tk' => :optional
 
   def install
     # Tell matplotlib, where brew is installed
@@ -68,42 +48,26 @@ class Matplotlib < Formula
                 "'#{MacOS.sdk_path}/System/Library/Frameworks',"
     end
 
-    # In order to install into the Cellar, the dir must exist and be in the
-    # PYTHONPATH.
-    temp_site_packages = lib/which_python/'site-packages'
-    mkdir_p temp_site_packages
-    ENV['PYTHONPATH'] = temp_site_packages
-
-    args = [
-      "--no-user-cfg",
-      "--verbose",
-      "install",
-      "--force",
-      "--install-scripts=#{share}/python",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
-    ]
-
-    system "python", "-s", "setup.py", *args
+    # This block will take care that "python" is the right python version and
+    # will be run once for each python executable.
+    python do
+      system python.binary, "setup.py", "install", "--prefix=#{prefix}"
+    end
   end
 
   def caveats
+    python.standard_caveats +
     <<-EOS.undent
-      For non-homebrew Python, you need to amend your PYTHONPATH like so:
-      export PYTHONPATH=#{HOMEBREW_PREFIX}/lib/#{which_python}/site-packages:$PYTHONPATH
-
       If you want to use the `wxagg` backend, do `brew install wxwidgets`.
       This can be done even after the matplotlib install.
     EOS
   end
 
   test do
-    ohai "This test takes quite a while. Use --verbose to see progress."
-    system "python", "-c", "import matplotlib as m; m.test()"
+    python do
+      ohai "This test takes quite a while. Use --verbose to see progress."
+      system "python", "-c", "import matplotlib as m; m.test()"
+    end
   end
 
-  def which_python
-    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
-  end
 end

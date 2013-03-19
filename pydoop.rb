@@ -26,8 +26,9 @@ class Pydoop < Formula
   url 'http://sourceforge.net/projects/pydoop/files/Pydoop-0.9/pydoop-0.9.1.tar.gz'
   sha1 'bd26426c49a293196d6ef20c751d2d18c0c7feea'
 
-  depends_on JdkInstalled.new
-  depends_on JavaHome.new
+  depends_on :python
+  depends_on JdkInstalled
+  depends_on JavaHome
   depends_on 'boost'
   depends_on 'hadoop' unless(ENV["HADOOP_HOME"])
 
@@ -39,31 +40,12 @@ class Pydoop < Formula
     unless(ENV["BOOST_PYTHON"])
       ENV['BOOST_PYTHON'] = 'boost_python-mt'
     end
-    system 'python', 'setup.py', 'build'
 
-    # In order to install into the Cellar, the dir must exist and be in the
-    # PYTHONPATH.
-    temp_site_packages = lib/which_python/'site-packages'
-    mkdir_p temp_site_packages
-    ENV['PYTHONPATH'] = temp_site_packages
-    args = [
-      "--no-user-cfg",
-      "--verbose",
-      "install",
-      "--force",
-      "--install-scripts=#{bin}",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
-      "--record=installed-files.txt"
-    ]
-    system "python", "-s", "setup.py", *args
+    python do
+      system python.binary, 'setup.py', 'install', "--prefix=#{prefix}"
+    end
 
     prefix.install %w[test examples]
-  end
-
-  def which_python
-    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
   end
 
   def caveats; <<-EOS.undent

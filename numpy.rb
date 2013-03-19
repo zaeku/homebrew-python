@@ -33,9 +33,12 @@ class Numpy < Formula
   sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
   head 'https://github.com/numpy/numpy.git'
 
+  depends_on :python => :recommended
+  depends_on :python3 => :optional
   depends_on 'nose' => :python
-  depends_on GfortranAvailable.new
-  depends_on NoUserConfig.new
+  depends_on 'nose' => :python3 if build.with? 'python3'
+  depends_on GfortranAvailable
+  depends_on NoUserConfig
   depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
 
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
@@ -48,9 +51,6 @@ class Numpy < Formula
   end
 
   def install
-    # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
-    ENV.fortran
-
     # Numpy is configured via a site.cfg and we want to use some libs
     # For maintainers:
     # Check which BLAS/LAPACK numpy actually uses via:
@@ -90,39 +90,22 @@ class Numpy < Formula
 
     Pathname('site.cfg').write config
 
-    # In order to install into the Cellar, the dir must exist and be in the
-    # PYTHONPATH.
-    temp_site_packages = lib/which_python/'site-packages'
-    mkdir_p temp_site_packages
-    ENV['PYTHONPATH'] = temp_site_packages
-
-    args = [
-      "--no-user-cfg",
-      "--verbose",
-      "build",
-      "--fcompiler=gnu95", # gfortran is gnu95
-      "install",
-      "--force",
-      "--install-scripts=#{share}/python",
-      "--install-lib=#{temp_site_packages}",
-      "--install-data=#{share}",
-      "--install-headers=#{include}",
-      "--record=installed-files.txt"
-    ]
-
-    system "python", "-s", "setup.py", *args
+    python do
+      # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
+      ENV.fortran
+      # gfortran is gnu95
+      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    end
   end
 
   def test
-    system "python", "-c", "import numpy; numpy.test()"
+    python do
+      system python, "-c", "import numpy; numpy.test()"
+    end
   end
 
   def caveats
     'Numpy ignores the `FC` env var and looks for gfortran during build.'
-  end
-
-  def which_python
-    "python" + `python -c 'import sys;print(sys.version[:3])'`.strip
   end
 end
 
