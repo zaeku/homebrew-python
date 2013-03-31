@@ -36,7 +36,7 @@ class Numpy < Formula
   depends_on 'nose' => :python
   depends_on GfortranAvailable.new
   depends_on NoUserConfig.new
-  depends_on 'suite-sparse'  # for libamd and libumfpack
+  depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
 
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => :optional
