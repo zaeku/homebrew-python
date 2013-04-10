@@ -31,8 +31,8 @@ end
 
 class Matplotlib < Formula
   homepage 'http://matplotlib.org'
-  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.2.0/matplotlib-1.2.0.tar.gz'
-  sha1 '1d0c319b2bc545f1a7002f56768e5730fe573518'
+  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.2.1/matplotlib-1.2.1.tar.gz'
+  sha1 '82fc44d0047a713c1b0b1b4ea2503e6a41c57f98'
   head 'https://github.com/matplotlib/matplotlib.git'
 
   option 'with-pyside', 'Build with PySide (Qt) backend'
