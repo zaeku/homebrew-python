@@ -29,8 +29,8 @@ end
 
 class Numpy < Formula
   homepage 'http://numpy.scipy.org'
-  url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.0/numpy-1.7.0.tar.gz'
-  sha1 'ba328985f20390b0f969a5be2a6e1141d5752cf9'
+  url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.1/numpy-1.7.1.tar.gz'
+  sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
   head 'https://github.com/numpy/numpy.git'
 
   depends_on 'nose' => :python
