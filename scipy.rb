@@ -38,17 +38,15 @@ class Scipy < Formula
       # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
       ENV.fortran
       # gfortran is gnu95
-      system python.binary, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end
   end
 
   def test
-    python do
-      system python.binary, "-c", "import scipy; scipy.test()"
-    end
+    system "python", "-c", "import scipy; scipy.test()"
   end
 
   def caveats
-    python.standard_caveats
+    python.standard_caveats if python
   end
 end
