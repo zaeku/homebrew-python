@@ -11,6 +11,11 @@ class Scipy < Formula
     sha1 '272e986a7dcab7b9757cc3a3a957a44a5d2ac320'
   end
 
+  def patches
+   # fix an ARPACK bug that shows primarily on Mac OS X
+   "https://github.com/scipy/scipy/pull/2684.diff" unless build.devel?
+  end
+
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on 'numpy'
@@ -34,6 +39,17 @@ class Scipy < Formula
     end
 
     python do
+      # The Accelerate.framework uses a g77 ABI
+      ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
+
+      # Make a proper site.cfg for umfpack
+      (buildpath/'site.cfg').write <<-EOS.undent
+        [amd]
+        amd_libs = amd, cholmod, colamd, ccolamd, camd, suitesparseconfig
+        [umfpack]
+        umfpack_libs = umfpack
+      EOS
+
       # gfortran is gnu95
       system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end

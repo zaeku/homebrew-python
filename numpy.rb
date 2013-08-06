@@ -50,8 +50,7 @@ class Numpy < Formula
       include_dirs = #{HOMEBREW_PREFIX}/include
 
       [amd]
-      amd_libs = amd
-
+      amd_libs = amd, cholmod, colamd, ccolamd, camd, suitesparseconfig
       [umfpack]
       umfpack_libs = umfpack
 
