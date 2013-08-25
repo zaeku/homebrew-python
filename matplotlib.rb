@@ -17,8 +17,8 @@ end
 
 class Matplotlib < Formula
   homepage 'http://matplotlib.org'
-  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.2.1/matplotlib-1.2.1.tar.gz'
-  sha1 '82fc44d0047a713c1b0b1b4ea2503e6a41c57f98'
+  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.0/matplotlib-1.3.0.tar.gz'
+  sha1 '4bcf177bbe2a1a576fbc0896e69c2de2cf7429ae'
   head 'https://github.com/matplotlib/matplotlib.git'
 
   depends_on :python
@@ -38,8 +38,8 @@ class Matplotlib < Formula
   def install
     # Tell matplotlib, where brew is installed
     inreplace "setupext.py",
-              "'darwin' : ['/usr/local/', '/usr', '/usr/X11', '/opt/local'],",
-              "'darwin' : ['#{HOMEBREW_PREFIX}', '/usr', '/usr/X11', '/opt/local'],"
+              "'darwin': ['/usr/local/', '/usr', '/usr/X11', '/opt/local'],",
+              "'darwin': ['#{HOMEBREW_PREFIX}', '/usr', '/usr/X11', '/opt/local'],"
 
     # Apple has the Frameworks (esp. Tk.Framework) in a different place
     unless MacOS::CLT.installed?
