@@ -35,8 +35,9 @@ class Numpy < Formula
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
-  depends_on 'nose' => :python
-  depends_on 'nose' => :python3 if build.with? 'python3'
+  depends_on :python => 'nose'
+  depends_on :python3 => 'nose' if build.with? 'python3'
+  depends_on :fortran
   depends_on GfortranAvailable
   depends_on NoUserConfig
   depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
