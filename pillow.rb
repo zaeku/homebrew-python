@@ -2,8 +2,8 @@ require 'formula'
 
 class Pillow < Formula
   homepage 'https://github.com/python-imaging/Pillow'
-  url 'http://pypi.python.org/packages/source/P/Pillow/Pillow-2.0.0.zip'
-  sha1 'b8e0e3a88d822f039a5cdd848abae98c1e74a295'
+  url 'https://github.com/python-imaging/Pillow/archive/2.1.0.tar.gz'
+  sha1 'e948dbfd4902de3dbf8bbc9556033f76ce906a7f'
   head 'https://github.com/python-imaging/Pillow.git'
 
   depends_on :python => :recommended
