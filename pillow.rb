@@ -6,9 +6,6 @@ class Pillow < Formula
   sha1 'b8e0e3a88d822f039a5cdd848abae98c1e74a295'
   head 'https://github.com/python-imaging/Pillow.git'
 
-  conflicts_with 'pil',
-    :because => 'both install the same "PIL" module but Pillow is the better maintained distribution for PIL.'
-
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on 'little-cms'
@@ -42,7 +39,7 @@ class Pillow < Formula
   def test
     python do
       # Only a small test until https://github.com/python-imaging/Pillow/issues/17
-      system "python", "-c", "import PIL; PIL.test()"
+      system "python", "-c", "import PIL.Image"
     end
   end
 end
