@@ -1,5 +1,4 @@
 require 'formula'
-require Formula.path("numpy")  # For numpy distutils and gfortran check
 
 class Scipy < Formula
   url 'http://sourceforge.net/projects/scipy/files/scipy/0.12.0/scipy-0.12.0.tar.gz'
@@ -13,10 +12,9 @@ class Scipy < Formula
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
-  depends_on GfortranAvailable
-  depends_on NoUserConfig
   depends_on 'numpy'
   depends_on 'swig' => :build
+  depends_on :fortran
 
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
   depends_on 'homebrew/science/openblas' => :optional
@@ -35,15 +33,15 @@ class Scipy < Formula
     end
 
     python do
-      # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
-      ENV.fortran
       # gfortran is gnu95
       system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end
   end
 
-  def test
-    system "python", "-c", "import scipy; scipy.test()"
+  test do
+    python do
+      system "python", "-c", "import scipy; scipy.test()"
+    end
   end
 
   def caveats
