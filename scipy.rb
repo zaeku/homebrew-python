@@ -5,10 +5,11 @@ class Scipy < Formula
   url 'http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz'
   sha1 '1ba2e2fc49ba321f62d6f78a5351336ed2509af3'
   head 'https://github.com/scipy/scipy.git'
-  # devel do
-  #   url 'not yet but will be for 0.13'
-  #   sha1 'todo'
-  # end
+
+  devel do
+    url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0b1/scipy-0.13.0b1.tar.gz'
+    sha1 '272e986a7dcab7b9757cc3a3a957a44a5d2ac320'
+  end
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
