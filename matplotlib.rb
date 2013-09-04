@@ -31,7 +31,8 @@ class Matplotlib < Formula
   depends_on 'ghostscript' => :optional
   depends_on 'pyside' => :optional
   depends_on 'pyqt' => :optional
-  depends_on 'pygtk' => :optional
+  # depends_on 'pygtk' => :optional
+  # depends_on 'pygobject' if build.with? 'pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tk' => :optional
 
