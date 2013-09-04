@@ -17,6 +17,11 @@ class Numpy < Formula
   sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
   head 'https://github.com/numpy/numpy.git'
 
+  devel do
+    url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0b1/numpy-1.8.0b1.tar.gz'
+    sha1 'eb8272284f290f4773039968c50ee81739227cf0'
+  end
+
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on :python => 'nose'
@@ -31,7 +36,7 @@ class Numpy < Formula
   def patches
     # Help numpy/distutils find homebrew's versioned gfortran-4.7 executable,
     # if `brew install gcc --enable-fortran` was used.
-    DATA
+    DATA unless build.devel?
   end
 
   def install
@@ -72,6 +77,7 @@ class Numpy < Formula
       EOS
     end
 
+    rm_f 'site.cfg' if build.devel?
     Pathname('site.cfg').write config
 
     python do
