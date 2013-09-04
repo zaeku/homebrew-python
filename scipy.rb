@@ -42,14 +42,6 @@ class Scipy < Formula
       # The Accelerate.framework uses a g77 ABI
       ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
 
-      # Make a proper site.cfg for umfpack
-      (buildpath/'site.cfg').write <<-EOS.undent
-        [amd]
-        amd_libs = amd, cholmod, colamd, ccolamd, camd, suitesparseconfig
-        [umfpack]
-        umfpack_libs = umfpack
-      EOS
-
       # gfortran is gnu95
       system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end
