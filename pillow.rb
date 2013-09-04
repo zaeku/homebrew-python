@@ -25,7 +25,7 @@ class Pillow < Formula
     end
 
     python do
-      system python.binary, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
+      system python, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
       # For python3 we append -py3 to the executable scripts:
       if python3
         [ "pilconvert", "pildriver", "pilfile", "pilfont", "pilprint" ].each do |f|
