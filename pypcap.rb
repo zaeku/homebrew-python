@@ -20,4 +20,9 @@ class Pypcap < Formula
              "--record=installed.txt",  "--single-version-externally-managed"
     end
   end
+
+  def caveats
+    python.standard_caveats if python
+  end
+
 end

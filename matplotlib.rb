@@ -22,7 +22,7 @@ class Matplotlib < Formula
   head 'https://github.com/matplotlib/matplotlib.git'
 
   depends_on :python
-  # depends_on :python3 => :optional # todo ... 
+  # depends_on :python3 => :optional # todo ...
   depends_on :freetype
   depends_on :libpng
   depends_on 'numpy'

@@ -36,6 +36,10 @@ class Pillow < Formula
 
   end
 
+  def caveats
+    python.standard_caveats if python
+  end
+
   def test
     python do
       # Only a small test until https://github.com/python-imaging/Pillow/issues/17

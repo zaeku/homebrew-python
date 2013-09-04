@@ -33,6 +33,7 @@ class Retext < Formula
   end
 
   def caveats
+    python.standard_caveats +
     <<-EOS.undent
       Run ReText by typing `retext.py`
     EOS
