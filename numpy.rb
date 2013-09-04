@@ -13,7 +13,7 @@ end
 
 class Numpy < Formula
   homepage 'http://numpy.scipy.org'
-  url 'http://sourceforge.net/projects/numpy/files/NumPy/1.7.1/numpy-1.7.1.tar.gz'
+  url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz'
   sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
   head 'https://github.com/numpy/numpy.git'
 
@@ -76,7 +76,6 @@ class Numpy < Formula
 
     python do
       # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
-      ENV.fortran
       # gfortran is gnu95
       system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end
@@ -89,8 +88,8 @@ class Numpy < Formula
   end
 
   def caveats
-    "Numpy ignores the `FC` env var and looks for gfortran during build.\n" +
-    python.standard_caveats
+    s = "Numpy ignores the `FC` env var and looks for gfortran during build.\n"
+    s += python.standard_caveats if python
   end
 end
 
