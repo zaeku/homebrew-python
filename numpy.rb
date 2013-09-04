@@ -12,7 +12,7 @@ class NoUserConfig < Requirement
 end
 
 class Numpy < Formula
-  homepage 'http://numpy.scipy.org'
+  homepage 'http://www.numpy.org'
   url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz'
   sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
   head 'https://github.com/numpy/numpy.git'
