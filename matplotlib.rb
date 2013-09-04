@@ -26,7 +26,7 @@ class Matplotlib < Formula
   depends_on :freetype
   depends_on :libpng
   depends_on 'numpy'
-  depends_on TexRequirement
+  depends_on TexRequirement => :optional
   depends_on 'cairo' => :optional
   depends_on 'ghostscript' => :optional
   depends_on 'pyside' => :optional
