@@ -34,7 +34,7 @@ class Matplotlib < Formula
   # depends_on 'pygtk' => :optional
   # depends_on 'pygobject' if build.with? 'pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
-  depends_on 'homebrew/dupes/tk' => :optional
+  depends_on 'homebrew/dupes/tcl-tk' => :optional
 
   def install
     # Tell matplotlib, where brew is installed
