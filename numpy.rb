@@ -1,21 +1,5 @@
 require 'formula'
 
-class GfortranAvailable < Requirement
-  def satisfied?
-    which 'gfortran' or which 'gfortran-4.7'
-  end
-
-  def fatal?
-    true
-  end
-
-  def message; <<-EOS.undent
-      No gfortran found! You may use gfortran provided by homebrew:
-        `brew install gfortran`
-    EOS
-  end
-end
-
 class NoUserConfig < Requirement
   def satisfied?
     not File.exist? "#{ENV['HOME']}/.numpy-site.cfg"
@@ -38,7 +22,6 @@ class Numpy < Formula
   depends_on :python => 'nose'
   depends_on :python3 => 'nose' if build.with? 'python3'
   depends_on :fortran
-  depends_on GfortranAvailable
   depends_on NoUserConfig
   depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
 
