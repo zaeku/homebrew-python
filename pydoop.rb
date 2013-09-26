@@ -16,15 +16,15 @@ class JavaHome < Requirement
   def message; <<-EOS.undent
     JAVA_HOME is not set:  please set it to the correct value for your Java
     installation. For instance:
-    /Library/Java/JavaVirtualMachines/jdk1.7.0_11.jdk/Contents/Home
+    /Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home
     EOS
   end
 end
 
 class Pydoop < Formula
   homepage 'http://http://pydoop.sourceforge.net/'
-  url 'http://sourceforge.net/projects/pydoop/files/Pydoop-0.9/pydoop-0.9.1.tar.gz'
-  sha1 'bd26426c49a293196d6ef20c751d2d18c0c7feea'
+  url 'http://sourceforge.net/projects/pydoop/files/Pydoop-0.10/pydoop-0.10.0.tar.gz'
+  sha1 '8e2bc6d69a6bf64350ca52b3b86df3f194df8512'
 
   depends_on :python
   depends_on JdkInstalled
