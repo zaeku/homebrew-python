@@ -54,7 +54,7 @@ class Matplotlib < Formula
     # This block will take care that "python" is the right python version and
     # will be run once for each python executable.
     python do
-      system python.binary, "setup.py", "install", "--prefix=#{prefix}"
+      system python.binary, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
     end
   end
 
