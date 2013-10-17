@@ -2,8 +2,8 @@ require 'formula'
 
 class Scipy < Formula
   homepage 'http://www.scipy.org'
-  url 'http://downloads.sourceforge.net/project/scipy/scipy/0.12.0/scipy-0.12.0.tar.gz'
-  sha1 '1ba2e2fc49ba321f62d6f78a5351336ed2509af3'
+  url 'http://downloads.sourceforge.net/project/scipy/scipy/0.12.1/scipy-0.12.1.tar.gz'
+  sha1 '72fc43def904105fd93b21283bdaa559c726154d'
   head 'https://github.com/scipy/scipy.git'
 
   devel do
