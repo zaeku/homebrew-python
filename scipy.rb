@@ -7,8 +7,8 @@ class Scipy < Formula
   head 'https://github.com/scipy/scipy.git'
 
   devel do
-    url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0b1/scipy-0.13.0b1.tar.gz'
-    sha1 '272e986a7dcab7b9757cc3a3a957a44a5d2ac320'
+    url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0rc1/scipy-0.13.0rc1.tar.gz'
+    sha1 'cc5c74c0a81900c9bfeccb70f79984d8e144fca6'
   end
 
   def patches
