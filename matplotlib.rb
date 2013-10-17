@@ -17,8 +17,8 @@ end
 
 class Matplotlib < Formula
   homepage 'http://matplotlib.org'
-  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.0/matplotlib-1.3.0.tar.gz'
-  sha1 '4bcf177bbe2a1a576fbc0896e69c2de2cf7429ae'
+  url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.1/matplotlib-1.3.1.tar.gz'
+  sha1 '8578afc86424392591c0ee03f7613ffa9b6f68ee'
   head 'https://github.com/matplotlib/matplotlib.git'
 
   depends_on :python
