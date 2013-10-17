@@ -49,7 +49,7 @@ class Scipy < Formula
 
   test do
     python do
-      system "python", "-c", "import scipy; scipy.test()"
+      system python, "-c", "import scipy; scipy.test()"
     end
   end
 
