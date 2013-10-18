@@ -58,7 +58,7 @@ class Pygame < Formula
     system "cat Setup_Darwin.in >> Setup"
 
     python do
-      system python.binary, "setup.py", "install", "--prefix=#{prefix}"
+      system python, "setup.py", "install", "--prefix=#{prefix}"
     end
   end
 
