@@ -42,7 +42,7 @@ class Pydoop < Formula
     end
 
     python do
-      system python.binary, 'setup.py', 'install', "--prefix=#{prefix}"
+      system python, 'setup.py', 'install', "--prefix=#{prefix}"
     end
 
     prefix.install %w[test examples]
