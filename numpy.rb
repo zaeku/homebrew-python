@@ -13,13 +13,13 @@ end
 
 class Numpy < Formula
   homepage 'http://www.numpy.org'
-  url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.7.1/numpy-1.7.1.tar.gz'
-  sha1 '11d878214d11a25e05a24f6b27e2b838815a2588'
+  url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0/numpy-1.8.0.tar.gz'
+  sha1 'a2c02c5fb2ab8cf630982cddc6821e74f5769974'
   head 'https://github.com/numpy/numpy.git'
 
   devel do
-    url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0b1/numpy-1.8.0b1.tar.gz'
-    sha1 'eb8272284f290f4773039968c50ee81739227cf0'
+    url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0/numpy-1.8.0.tar.gz'
+    sha1 'a2c02c5fb2ab8cf630982cddc6821e74f5769974'
   end
 
   depends_on :python => :recommended
