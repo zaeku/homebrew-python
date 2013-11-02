@@ -2,13 +2,13 @@ require 'formula'
 
 class Scipy < Formula
   homepage 'http://www.scipy.org'
-  url 'http://downloads.sourceforge.net/project/scipy/scipy/0.12.1/scipy-0.12.1.tar.gz'
-  sha1 '72fc43def904105fd93b21283bdaa559c726154d'
+  url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0/scipy-0.13.0.tar.gz'
+  sha1 '704c2d0a855dd94a341546a475362038a9664dac'
   head 'https://github.com/scipy/scipy.git'
 
   devel do
-    url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0rc1/scipy-0.13.0rc1.tar.gz'
-    sha1 'cc5c74c0a81900c9bfeccb70f79984d8e144fca6'
+    url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.0/scipy-0.13.0.tar.gz'
+    sha1 '704c2d0a855dd94a341546a475362038a9664dac'
   end
 
   def patches
