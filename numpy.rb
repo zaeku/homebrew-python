@@ -17,11 +17,6 @@ class Numpy < Formula
   sha1 'a2c02c5fb2ab8cf630982cddc6821e74f5769974'
   head 'https://github.com/numpy/numpy.git'
 
-  devel do
-    url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0/numpy-1.8.0.tar.gz'
-    sha1 'a2c02c5fb2ab8cf630982cddc6821e74f5769974'
-  end
-
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on :python => 'nose'
