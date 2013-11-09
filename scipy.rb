@@ -6,11 +6,6 @@ class Scipy < Formula
   sha1 '704c2d0a855dd94a341546a475362038a9664dac'
   head 'https://github.com/scipy/scipy.git'
 
-  def patches
-   # fix an ARPACK bug that shows primarily on Mac OS X
-   "https://github.com/scipy/scipy/pull/2684.diff" unless build.devel?
-  end
-
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on 'numpy'
