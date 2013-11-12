@@ -28,12 +28,6 @@ class Numpy < Formula
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => :optional
 
-  def patches
-    # Help numpy/distutils find homebrew's versioned gfortran-4.7 executable,
-    # if `brew install gcc --enable-fortran` was used.
-    DATA unless build.devel?
-  end
-
   def install
     # Numpy is configured via a site.cfg and we want to use some libs
     # For maintainers:
@@ -92,18 +86,3 @@ class Numpy < Formula
     s += python.standard_caveats if python
   end
 end
-
-__END__
-diff --git a/numpy/distutils/fcompiler/gnu.py b/numpy/distutils/fcompiler/gnu.py
-index e80a417..15d164b 100644
---- a/numpy/distutils/fcompiler/gnu.py
-+++ b/numpy/distutils/fcompiler/gnu.py
-@@ -247,7 +247,7 @@ class Gnu95FCompiler(GnuFCompiler):
-     #       GNU Fortran 95 (GCC) 4.2.0 20060218 (experimental)
-     #       GNU Fortran (GCC) 4.3.0 20070316 (experimental)
- 
--    possible_executables = ['gfortran', 'f95']
-+    possible_executables = ['gfortran', 'gfortran-4.7']
-     executables = {
-         'version_cmd'  : ["<F90>", "--version"],
-         'compiler_f77' : [None, "-Wall", "-ffixed-form",
