@@ -39,13 +39,6 @@ class Scipy < Formula
 
   test do
     python do
-      # If building for Python 2.x (at least the OS X provided python on 10.9)
-      # Numpy and Scipy get confused when they find python 3.x in the
-      # PKG_CONFIG_PATH, too. But that is what Homebrew does when we add the
-      # `--with-python3`. So, until proper fixed, we clean that ENV var:
-      ENV['PKG_CONFIG_PATH'] = ENV.determine_pkg_config_path
-      ENV.prepend_path 'PKG_CONFIG_PATH', python.pkg_config_path
-
       system python, "-c", "import scipy; scipy.test()"
     end
   end
