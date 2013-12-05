@@ -38,6 +38,13 @@ class Matplotlib < Formula
   depends_on :python => 'pyparsing'
   depends_on :python => ['dateutil' => 'python-dateutil']
 
+  def patches
+    p = []
+    # Fix for freetpe 2.5.1 (https://github.com/samueljohn/homebrew-python/issues/62)
+    p << 'https://github.com/matplotlib/matplotlib/pull/2623.diff'
+    return p
+  end
+
   def install
     # Tell matplotlib, where brew is installed
     inreplace "setupext.py",
