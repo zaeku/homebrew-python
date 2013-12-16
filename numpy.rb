@@ -53,12 +53,7 @@ class Numpy < Formula
       ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
 
       config << <<-EOS.undent
-        [blas_opt]
-        libraries = openblas
-        library_dirs = #{openblas_dir}/lib
-        include_dirs = #{openblas_dir}/include
-
-        [lapack_opt]
+        [openblas]
         libraries = openblas
         library_dirs = #{openblas_dir}/lib
         include_dirs = #{openblas_dir}/include

@@ -15,6 +15,17 @@ class Scipy < Formula
   depends_on 'homebrew/science/openblas' => :optional
 
   def install
+    config = <<-EOS.undent
+      [DEFAULT]
+      library_dirs = #{HOMEBREW_PREFIX}/lib
+      include_dirs = #{HOMEBREW_PREFIX}/include
+
+      [amd]
+      amd_libs = amd, cholmod, colamd, ccolamd, camd, suitesparseconfig
+      [umfpack]
+      umfpack_libs = umfpack
+
+    EOS
     if build.with? 'openblas'
       # For maintainers:
       # Check which BLAS/LAPACK numpy actually uses via:
@@ -25,10 +36,20 @@ class Scipy < Formula
       # linking against Accelerate.framework.
       ENV['ATLAS'] = "None"
       ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
+
+      config << <<-EOS.undent
+        [openblas]
+        libraries = openblas
+        library_dirs = #{openblas_dir}/lib
+        include_dirs = #{openblas_dir}/include
+      EOS
     end
 
     # The Accelerate.framework uses a g77 ABI
     ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
+
+    rm_f 'site.cfg' if build.devel?
+    Pathname('site.cfg').write config
 
     # gfortran is gnu95
     system "python", "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
