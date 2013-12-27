@@ -1,18 +1,16 @@
 # Overview #
 
-This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew/) with a special focus on **Python** libraries not yet well supported by `pip install x` due to compilation and dependency issues.
+[Homebrew](http://brew.sh)-formulae to install **Python** libraries, which are not yet well supported by `pip install` due to compiler and dependency issues.
 
-***!! attention, numpy and scipy will soon move to homebrew/science !!***
+***!! attention, this repository will move to Homebrew/python, soon !!***
 
-## Formulae you find here ##
+## Why not pip? ##
 
 *   **Numpy**
     -   using *suite-sparse* for fast sparse matrices (amd,umfpack)
     -   optionally link against the *openBLAS* (--with-openblas)
-    -   use `--devel` or `--HEAD` to get the latest greatest.
 *   **SciPy**
     -   optionally link against the *openBLAS* (--with-openblas)
-    -   If you want, turn around your `--HEAD`
 *   **Matplotlib**
     -   Support all optional deps, installable by brew
         (e.g. PyGTK, cairo, ghostscript, tk, freetype and libpng)
@@ -23,8 +21,6 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
     -   *Freetype2* support
     -   *Little-CMS* (for color management)
 *   **PyGame** (Game development and provides bindings to SDL)
-*   **Pmw** (Python Megawidgets)
-    --> moved to homebrew/science (because PyMol needs it)
 *   **ReText** (Markdown Editor)
     -   Supports enchant. (You first need to `brew install enchant`)
     -   Some deps have to be installed via pip (it will tell you so)
@@ -33,46 +29,39 @@ This repository contains formulae for [Homebrew](http://mxcl.github.com/homebrew
 
 ## Install ##
 
-*   `brew tap samueljohn/python`
+*   `brew tap samueljohn/python`  # _notice: Tap will move to Homebrew/python, soon_
 *   `brew install scipy`
 *   `brew test scipy --verbose`
 
 
+## Troubleshooting ##
+
+Check main Homebrew [Troubleshooting](https://github.com/Homebrew/homebrew/wiki/Troubleshooting) page. Open an issue here.
+
+
 ## Python ##
 
-Right now, only Python 2.7.x is supported. This will change in the near future.
+We support Python 2.x and 3.x.
 
-I recommend to install a brewed Python: `brew install python`
-Because it's distutils knows already about the right flags to pass to the C compiler in order to find libs includes of other brewed software and the Apple frameworks (even if you don't have the "Command Line Tools for Xcode.")
-Read more aboute [Homebrew and Python][1]
-
-
-## Acceptable formulae in this tap ##
-
-*   Software has to be maintained and alive
-    -   No updates in the last five years -> I consider it dead.
-*   Not your own little Python modules. Try to get them into PyPi first.
-*   A simple `pip install <x>` has to fail either
-    -   because it needs other software to be brewed first, or
-    -   because it builds C-extensions that need special treatment
-        (gfortran,lapack)
-*   It has to be Python software. Others should go into main homebrew.
+_Note: Soon, we will deprecate the `--with-python3` switch and add formulae wiht `-py3` suffixes to support Python 3.x_
 
 
 ## How to add a new formulae here ##
 
-*   Fork my repository on github.
+*   Fork this repository on github.
 *   Clone to your Mac.
 *   Read [Homebrew and Python][1] and look at the other formulae here.
-*   In your local `homebrew-python` repo, create a new branch:
-    `git checkout --branch my_new_formulae`
-*   Write your formulae. Check the Homebrew wiki for details.
-*   Test it. Does it install?
-*   `git push --set-upstream origin my_new_formulae`
+*   In your locally cloned `homebrew-python` repo, create a new branch:
+    `git checkout --branch my_new_formula`
+*   Write/edit your formula (ruby file). Check the [Homebrew wiki] for details.
+*   Test it locally! `brew install ./my-new-formula.rb`. Does it install?
+    Note, how `./<formula>.rb` will target the local file.
+*   `git push --set-upstream origin my_new_formula`
     to get it into your github as a new branch.
 *   If you have to change something, add a commit and `git push`.
 *   On github, select your new branch and then click the
     "Pull Request" button.
 
 
-[1]: https://github.com/mxcl/homebrew/wiki/Homebrew-and-Python
+[1]: https://github.com/Homebrew/homebrew/wiki/Homebrew-and-Python
+[Homebrew wiki]: https://github.com/Homebrew/homebrew/wiki
