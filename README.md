@@ -2,8 +2,6 @@
 
 [Homebrew](http://brew.sh)-formulae to install **Python** libraries, which are not yet well supported by `pip install` due to compiler and dependency issues.
 
-***!! attention, this repository will move to Homebrew/python, soon !!***
-
 ## Why not pip? ##
 
 *   **Numpy**
@@ -29,7 +27,7 @@
 
 ## Install ##
 
-*   `brew tap samueljohn/python`  # _notice: Tap will move to Homebrew/python, soon_
+*   `brew tap Homebrew/python`
 *   `brew install scipy`
 *   `brew test scipy --verbose`
 
