@@ -66,8 +66,4 @@ class Pygame < Formula
     raise 'no test yet'
   end
 
-  def caveats
-    python.standard_caveats if python
-  end
-
 end

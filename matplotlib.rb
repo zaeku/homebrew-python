@@ -63,7 +63,6 @@ class Matplotlib < Formula
       If you want to use the `wxagg` backend, do `brew install wxwidgets`.
       This can be done even after the matplotlib install.
     EOS
-    s += python.standard_caveats if python
   end
 
   test do

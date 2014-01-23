@@ -49,9 +49,7 @@ class Pydoop < Formula
   end
 
   def caveats;
-    s = ''
-    s += python.standard_caveats if python
-    s += <<-EOS.undent
+    s = <<-EOS.undent
     If you use the Homebrew version of Python, you might get a
     "PyThreadState_Get: no current thread" error. In this case, try
     reinstalling boost with the --build-from-source option. For

@@ -83,6 +83,5 @@ class Numpy < Formula
 
   def caveats
     s = "Numpy ignores the `FC` env var and looks for gfortran during build.\n"
-    s += python.standard_caveats if python
   end
 end

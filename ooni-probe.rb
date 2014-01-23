@@ -44,10 +44,6 @@ class OoniProbe < Formula
     end
   end
 
-  def caveats
-    python.standard_caveats if python
-  end
-
 end
 
 __END__
