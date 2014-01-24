@@ -22,7 +22,6 @@ class Matplotlib < Formula
   head 'https://github.com/matplotlib/matplotlib.git'
 
   depends_on :python
-  depends_on :python3 => :optional
   depends_on :freetype
   depends_on :libpng
   depends_on 'numpy'
@@ -35,8 +34,8 @@ class Matplotlib < Formula
   depends_on 'pygobject' if build.with? 'pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tcl-tk' => :optional
-  depends_on :python => 'pyparsing'
-  depends_on :python => ['dateutil' => 'python-dateutil']
+  depends_on 'pyparsing' => :python
+  depends_on 'python-dateutil' => :python
 
   def patches
     p = []
@@ -58,11 +57,7 @@ class Matplotlib < Formula
                 "'#{MacOS.sdk_path}/System/Library/Frameworks',"
     end
 
-    # This block will take care that "python" is the right python version and
-    # will be run once for each python executable.
-    python do
-      system python, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
-    end
+    system "python", "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
   end
 
   def caveats
@@ -73,10 +68,7 @@ class Matplotlib < Formula
   end
 
   test do
-    python do
-      ohai "This test takes quite a while. Use --verbose to see progress."
-      system "python", "-c", "import matplotlib as m; m.test()"
-    end
+    ohai "This test takes quite a while. Use --verbose to see progress."
+    system "python", "-c", "import matplotlib as m; m.test()"
   end
-
 end
