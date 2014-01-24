@@ -19,7 +19,7 @@ class Numpy < Formula
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
-  depends_on :python => 'nose'
+  depends_on 'nose' => :python
   depends_on :python3 => 'nose' if build.with? 'python3'
   depends_on :fortran
   depends_on NoUserConfig
@@ -68,17 +68,13 @@ class Numpy < Formula
     rm_f 'site.cfg' if build.devel?
     Pathname('site.cfg').write config
 
-    python do
-      # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
-      # gfortran is gnu95
-      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
-    end
+    # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
+    # gfortran is gnu95
+    system "python", "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
   end
 
   def test
-    python do
-      system python, "-c", "import numpy; numpy.test()"
-    end
+    system "python", "-c", "import numpy; numpy.test()"
   end
 
   def caveats
