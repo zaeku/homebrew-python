@@ -7,7 +7,6 @@ class Pillow < Formula
   head 'https://github.com/python-imaging/Pillow.git'
 
   depends_on :python => :recommended
-  depends_on :python3 => :optional
   depends_on 'little-cms'
   depends_on 'graphicsmagick'
   depends_on 'freetype'
@@ -24,22 +23,11 @@ class Pillow < Formula
       s.gsub! "FREETYPE_ROOT = None", "FREETYPE_ROOT = ('#{Formula.factory('freetype').opt_prefix}/lib', '#{Formula.factory('freetype').opt_prefix}/include')"
     end
 
-    python do
-      system python, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
-      # For python3 we append -py3 to the executable scripts:
-      if python3
-        [ "pilconvert", "pildriver", "pilfile", "pilfont", "pilprint" ].each do |f|
-          bin.install "build/scripts-#{python.version.major}.#{python.version.minor}/#{f}.py" => "#{f}-py3.py"
-        end
-      end
-    end
-
+    system "python", "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
   end
 
   def test
-    python do
-      # Only a small test until https://github.com/python-imaging/Pillow/issues/17
-      system "python", "-c", "import PIL.Image"
-    end
+    # Only a small test until https://github.com/python-imaging/Pillow/issues/17
+    system "python", "-c", "import PIL.Image"
   end
 end
