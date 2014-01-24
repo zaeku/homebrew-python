@@ -20,22 +20,17 @@ class Retext < Formula
   # depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
 
   def install
-    python do
-      system python.binary, "setup.py", "install", "--prefix=#{prefix}"
+    system "python", "setup.py", "install", "--prefix=#{prefix}"
 
-      # Copy icons to correct place an fix the path
-      icons_dir = lib/python.xy/'site-packages/ReText/icons/'
-      RetextIcons.new.brew { icons_dir.install Dir['*.*'] }
-      inreplace lib/python.xy/'site-packages/ReText/__init__.py',
-                'icon_path = "icons/"',
-                "icon_path = '#{lib/python.xy}/site-packages/ReText/icons/'"
-    end
+    # Copy icons to correct place an fix the path
+    icons_dir = lib/python.xy/'site-packages/ReText/icons/'
+    RetextIcons.new.brew { icons_dir.install Dir['*.*'] }
+    inreplace lib/python.xy/'site-packages/ReText/__init__.py',
+              'icon_path = "icons/"',
+              "icon_path = '#{lib}python2.7/site-packages/ReText/icons/'"
   end
 
   def caveats
-    s = <<-EOS.undent
-      Run ReText by typing `retext.py`
-    EOS
+    "Run ReText by typing `retext.py`"
   end
-
 end
