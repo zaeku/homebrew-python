@@ -7,7 +7,6 @@ class Scipy < Formula
   head 'https://github.com/scipy/scipy.git'
 
   depends_on :python => :recommended
-  depends_on :python3 => :optional
   depends_on 'numpy'
   depends_on 'swig' => :build
   depends_on :fortran
@@ -28,19 +27,14 @@ class Scipy < Formula
       ENV['BLAS'] = ENV['LAPACK'] = "#{openblas_dir}/lib/libopenblas.dylib"
     end
 
-    python do
-      # The Accelerate.framework uses a g77 ABI
-      ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
+    # The Accelerate.framework uses a g77 ABI
+    ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
 
-      # gfortran is gnu95
-      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
-    end
+    # gfortran is gnu95
+    system "python", "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
   end
 
   test do
-    python do
-      system python, "-c", "import scipy; scipy.test()"
-    end
+    system "python", "-c", "import scipy; scipy.test()"
   end
-
 end
