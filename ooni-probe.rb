@@ -5,25 +5,25 @@ class OoniProbe < Formula
   url 'https://github.com/TheTorProject/ooni-probe/archive/v0.0.10.tar.gz'
   sha1 '2028840ef0ccf1eab79012b3c7287b805e573eba'
 
-  depends_on :python => 'argparse'
-  depends_on :python => 'docutils'
-  depends_on :python => 'ipaddr'
-  depends_on :python => 'pygeoip'
-  depends_on :python => 'repoze.sphinx.autointerface'
-  depends_on :python => 'txsocksx'
-  depends_on :python => 'storm'
-  depends_on :python => 'transaction'
-  depends_on :python => 'txtorcon'
-  depends_on :python => 'wsgiref'
-  depends_on :python => 'zope.component'
-  depends_on :python => 'zope.event'
-  depends_on :python => 'zope.interface'
-  depends_on :python => 'Pyrex'
-  depends_on :python => ['dns' => 'dnspython']
-  depends_on :python => 'twisted'
-  depends_on :python => 'pygments'
-  depends_on :python => ['yaml' =>'PyYAML']
-  depends_on :python => ['OpenSSL' => 'pyOpenSSL']
+  depends_on 'argparse' => :python
+  depends_on 'docutils' => :python
+  depends_on 'ipaddr' => :python
+  depends_on 'pygeoip' => :python
+  depends_on 'repoze.sphinx.autointerface' => :python
+  depends_on 'txsocksx' => :python
+  depends_on 'storm' => :python
+  depends_on 'transaction' => :python
+  depends_on 'txtorcon' => :python
+  depends_on 'wsgiref' => :python
+  depends_on 'zope.component' => :python
+  depends_on 'zope.event' => :python
+  depends_on 'zope.interface' => :python
+  depends_on 'Pyrex' => :python
+  depends_on 'dns' => :python
+  depends_on 'twisted' => :python
+  depends_on 'pygments' => :python
+  depends_on 'yaml' => :python
+  depends_on 'OpenSSL' => :python
 
   depends_on 'libdnet'
   depends_on 'scapy'
@@ -38,10 +38,8 @@ class OoniProbe < Formula
   end
 
   def install
-    python do
-      system python, 'setup.py', 'install', "--prefix=#{prefix}",
-                     "--record=installed.txt",  "--single-version-externally-managed"
-    end
+    system "python", 'setup.py', 'install', "--prefix=#{prefix}",
+                   "--record=installed.txt",  "--single-version-externally-managed"
   end
 
 end
