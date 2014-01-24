@@ -41,10 +41,7 @@ class Pydoop < Formula
       ENV['BOOST_PYTHON'] = 'boost_python-mt'
     end
 
-    python do
-      system python, 'setup.py', 'install', "--prefix=#{prefix}"
-    end
-
+    system "python", 'setup.py', 'install', "--prefix=#{prefix}"
     prefix.install %w[test examples]
   end
 
