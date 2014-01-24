@@ -57,13 +57,6 @@ class Pygame < Formula
     # Manually append what is the default for PyGame on the Mac
     system "cat Setup_Darwin.in >> Setup"
 
-    python do
-      system python, "setup.py", "install", "--prefix=#{prefix}"
-    end
+    system "python", "setup.py", "install", "--prefix=#{prefix}"
   end
-
-  def test
-    raise 'no test yet'
-  end
-
 end
