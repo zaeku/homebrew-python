@@ -12,13 +12,10 @@ class Pypcap < Formula
   depends_on :python
 
   def install
-    python do
-      inreplace "setup.py", /^for d in dirs/,
-                            "dirs = ['#{MacOS.sdk_path}/usr', '#{HOMEBREW_PREFIX}']\nfor d in dirs"
+    inreplace "setup.py", /^for d in dirs/,
+                          "dirs = ['#{MacOS.sdk_path}/usr', '#{HOMEBREW_PREFIX}']\nfor d in dirs"
 
-      system python, 'setup.py', 'install', "--prefix=#{prefix}",
-             "--record=installed.txt",  "--single-version-externally-managed"
-    end
+    system "python", 'setup.py', 'install', "--prefix=#{prefix}",
+           "--record=installed.txt",  "--single-version-externally-managed"
   end
-
 end
