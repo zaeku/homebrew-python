@@ -9,9 +9,6 @@ class Scapy < Formula
   depends_on 'libdnet'
 
   def install
-    python do
-      system python, 'setup.py', 'install', "--prefix=#{prefix}"
-    end
+    system "python", 'setup.py', 'install', "--prefix=#{prefix}"
   end
-
 end
