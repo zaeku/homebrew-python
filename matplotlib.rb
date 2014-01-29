@@ -35,7 +35,7 @@ class Matplotlib < Formula
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tcl-tk' => :optional
   depends_on 'pyparsing' => :python
-  depends_on 'python-dateutil' => :python
+  depends_on LanguageModuleDependency.new(:python, 'python-dateutil', 'dateutil')
 
   def patches
     p = []
