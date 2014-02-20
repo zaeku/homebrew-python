@@ -6,7 +6,7 @@ class Scapy < Formula
   sha1 'ae0a9947a08a01a84abde9db12fed074ac888e47'
 
   depends_on :python
-  depends_on 'libdnet'
+  depends_on 'libdnet' => 'with-python'
 
   def install
     system "python", 'setup.py', 'install', "--prefix=#{prefix}"
