@@ -10,6 +10,7 @@ class Pypcap < Formula
   sha1 '8e1669da927c3cdaa03204d4afa9a88707a19756'
 
   depends_on :python
+  depends_on 'Pyrex' => :python
 
   def install
     inreplace "setup.py", /^for d in dirs/,
