@@ -1,10 +1,5 @@
 require 'formula'
 
-class RetextIcons < Formula
-  url 'http://sourceforge.net/projects/retext/files/Icons/ReTextIcons_r3.tar.gz'
-  sha1 'c51d4a687c21b7de3fd24a14a7ae16e9b0869e31'
-end
-
 class Retext < Formula
   homepage 'http://sourceforge.net/projects/retext/'
   url 'http://sourceforge.net/projects/retext/files/ReText-4.0/ReText-4.0.0.tar.gz'
@@ -19,12 +14,17 @@ class Retext < Formula
   depends_on 'enchant'
   # depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
 
+  resource 'retext' do
+    url 'http://sourceforge.net/projects/retext/files/Icons/ReTextIcons_r3.tar.gz'
+    sha1 'c51d4a687c21b7de3fd24a14a7ae16e9b0869e31'
+  end
+
   def install
     system "python", "setup.py", "install", "--prefix=#{prefix}"
 
     # Copy icons to correct place an fix the path
     icons_dir = lib/python.xy/'site-packages/ReText/icons/'
-    RetextIcons.new.brew { icons_dir.install Dir['*.*'] }
+    resource('retext').stage { icons_dir.install Dir['*.*'] }
     inreplace lib/python.xy/'site-packages/ReText/__init__.py',
               'icon_path = "icons/"',
               "icon_path = '#{lib}python2.7/site-packages/ReText/icons/'"
