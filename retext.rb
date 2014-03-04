@@ -2,7 +2,7 @@ require 'formula'
 
 class Retext < Formula
   homepage 'http://sourceforge.net/projects/retext/'
-  url 'http://sourceforge.net/projects/retext/files/ReText-4.0/ReText-4.0.0.tar.gz'
+  url 'https://downloads.sourceforge.net/project/retext/ReText-4.0/ReText-4.0.0.tar.gz'
   # 4.1 will drop python 2.x support!
   sha1 '4a2ada905d790b4d8f3709271945008f50cd4d06'
 
@@ -15,7 +15,7 @@ class Retext < Formula
   # depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
 
   resource 'retext' do
-    url 'http://sourceforge.net/projects/retext/files/Icons/ReTextIcons_r3.tar.gz'
+    url 'https://downloads.sourceforge.net/project/retext/Icons/ReTextIcons_r3.tar.gz'
     sha1 'c51d4a687c21b7de3fd24a14a7ae16e9b0869e31'
   end
 

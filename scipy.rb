@@ -2,7 +2,7 @@ require 'formula'
 
 class Scipy < Formula
   homepage 'http://www.scipy.org'
-  url 'http://downloads.sourceforge.net/project/scipy/scipy/0.13.1/scipy-0.13.1.tar.gz'
+  url 'https://downloads.sourceforge.net/project/scipy/scipy/0.13.1/scipy-0.13.1.tar.gz'
   sha1 'a260c01c76538e9c1f50eecdec41529ec721b554'
   head 'https://github.com/scipy/scipy.git'
 
@@ -20,7 +20,7 @@ class Scipy < Formula
       # Check which BLAS/LAPACK numpy actually uses via:
       # xcrun otool -L $(brew --prefix)/Cellar/scipy/<version>/lib/python2.7/site-packages/scipy/linalg/_flinalg.so
       # or the other .so files.
-      openblas_dir = Formula.factory('openblas').opt_prefix
+      openblas_dir = Formula["openblas"].opt_prefix
       # Setting ATLAS to None is important to prevent numpy from always
       # linking against Accelerate.framework.
       ENV['ATLAS'] = "None"

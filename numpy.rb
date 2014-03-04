@@ -13,7 +13,7 @@ end
 
 class Numpy < Formula
   homepage 'http://www.numpy.org'
-  url 'http://downloads.sourceforge.net/project/numpy/NumPy/1.8.0/numpy-1.8.0.tar.gz'
+  url 'https://downloads.sourceforge.net/project/numpy/NumPy/1.8.0/numpy-1.8.0.tar.gz'
   sha1 'a2c02c5fb2ab8cf630982cddc6821e74f5769974'
   head 'https://github.com/numpy/numpy.git'
 
@@ -46,7 +46,7 @@ class Numpy < Formula
     EOS
 
     if build.with? 'openblas'
-      openblas_dir = Formula.factory('openblas').opt_prefix
+      openblas_dir = Formula["openblas"].opt_prefix
       # Setting ATLAS to None is important to prevent numpy from always
       # linking against Accelerate.framework.
       ENV['ATLAS'] = "None"

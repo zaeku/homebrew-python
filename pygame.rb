@@ -34,14 +34,14 @@ class Pygame < Formula
     # code in config.py does not know about the HOMEBREW_PREFIX, assumes SDL
     # is built as a framework and cannot find the Frameworks inside of Xcode.
     mv 'Setup.in', 'Setup'
-    sdl = Formula.factory('sdl').opt_prefix
-    sdl_ttf = Formula.factory('sdl_ttf').opt_prefix
-    sdl_image = Formula.factory('sdl_image').opt_prefix
-    sdl_mixer = Formula.factory('sdl_mixer').opt_prefix
-    smpeg = Formula.factory('smpeg').opt_prefix
-    png = Formula.factory('libpng').opt_prefix
-    jpeg = Formula.factory('jpeg').opt_prefix
-    portmidi = Formula.factory('portmidi').opt_prefix
+    sdl = Formula["sdl"].opt_prefix
+    sdl_ttf = Formula["sdl_ttf"].opt_prefix
+    sdl_image = Formula["sdl_image"].opt_prefix
+    sdl_mixer = Formula["sdl_mixer"].opt_prefix
+    smpeg = Formula["smpeg"].opt_prefix
+    png = Formula["libpng"].opt_prefix
+    jpeg = Formula["jpeg"].opt_prefix
+    portmidi = Formula["portmidi"].opt_prefix
     inreplace 'Setup' do |s|
       s.gsub!(/^SDL =.*$/, "SDL = -I#{sdl}/include/SDL -Ddarwin -lSDL")
       s.gsub!(/^FONT =.*$/, "FONT = -I#{sdl_ttf}/include/SDL -lSDL_ttf")

@@ -23,7 +23,7 @@ end
 
 class Pydoop < Formula
   homepage 'http://http://pydoop.sourceforge.net/'
-  url 'http://sourceforge.net/projects/pydoop/files/Pydoop-0.10/pydoop-0.10.0.tar.gz'
+  url 'https://downloads.sourceforge.net/project/pydoop/Pydoop-0.10/pydoop-0.10.0.tar.gz'
   sha1 '8e2bc6d69a6bf64350ca52b3b86df3f194df8512'
 
   depends_on :python
@@ -35,7 +35,7 @@ class Pydoop < Formula
   def install
     unless(ENV["HADOOP_HOME"])
       ohai "HADOOP_HOME is not set. Using brewed version"
-      ENV.append 'HADOOP_HOME', Formula.factory('hadoop').libexec
+      ENV.append 'HADOOP_HOME', Formula["hadoop"].libexec
     end
     unless(ENV["BOOST_PYTHON"])
       ENV['BOOST_PYTHON'] = 'boost_python-mt'
