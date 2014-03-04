@@ -40,9 +40,9 @@ class Matplotlib < Formula
   def patches
     p = []
     # Fix for freetpe 2.5.1 (https://github.com/samueljohn/homebrew-python/issues/62)
-    p << 'https://github.com/matplotlib/matplotlib/pull/2623.diff'
+    p << 'https://github.com/matplotlib/matplotlib/pull/2623.diff' unless build.head?
     return p
-  end unless build.head?
+  end
 
   def install
     # Tell matplotlib, where brew is installed
