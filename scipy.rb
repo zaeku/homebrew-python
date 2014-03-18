@@ -2,8 +2,8 @@ require 'formula'
 
 class Scipy < Formula
   homepage 'http://www.scipy.org'
-  url 'https://downloads.sourceforge.net/project/scipy/scipy/0.13.1/scipy-0.13.1.tar.gz'
-  sha1 'a260c01c76538e9c1f50eecdec41529ec721b554'
+  url 'https://downloads.sourceforge.net/project/scipy/scipy/0.13.3/scipy-0.13.3.tar.gz'
+  sha1 '2c7d53fc1d7bfe0a3ab5818ef6d84cb5d8cfcca4'
   head 'https://github.com/scipy/scipy.git'
 
   depends_on :python => :recommended
