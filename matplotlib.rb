@@ -21,6 +21,7 @@ class Matplotlib < Formula
   sha1 '8578afc86424392591c0ee03f7613ffa9b6f68ee'
   head 'https://github.com/matplotlib/matplotlib.git'
 
+  depends_on 'pkg-config' => :build
   depends_on :python
   depends_on :freetype
   depends_on :libpng
