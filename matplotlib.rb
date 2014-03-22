@@ -22,21 +22,41 @@ class Matplotlib < Formula
   head 'https://github.com/matplotlib/matplotlib.git'
 
   depends_on 'pkg-config' => :build
-  depends_on :python
+  depends_on :python => :recommended
+  depends_on :python3 => :optional
   depends_on :freetype
   depends_on :libpng
-  depends_on 'numpy'
   depends_on TexRequirement => :optional
   depends_on 'cairo' => :optional
   depends_on 'ghostscript' => :optional
-  depends_on 'pyside' => :optional
-  depends_on 'pyqt' => :optional
   depends_on 'pygtk' => :optional
   depends_on 'pygobject' if build.with? 'pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tcl-tk' => :optional
-  depends_on 'pyparsing' => :python
-  depends_on LanguageModuleDependency.new(:python, 'python-dateutil', 'dateutil')
+
+  if build.with?("python3")
+    depends_on 'numpy' => 'with-python3'
+    depends_on 'pyside' => [:optional, 'with-python3']
+    depends_on 'pyqt' => [:optional, 'with-python3']
+  else
+    depends_on 'numpy'
+    depends_on 'pyside' => :optional
+    depends_on 'pyqt' => :optional
+  end
+
+  resource 'pyparsing' do
+    url 'https://pypi.python.org/packages/source/p/pyparsing/pyparsing-2.0.1.tar.gz'
+    sha1 'b645857008881d70599e89c66e4bbc596fe22043'
+  end
+
+  resource 'python-dateutil' do
+    url 'https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.2.tar.gz'
+    sha1 'fbafcd19ea0082b3ecb17695b4cb46070181699f'
+  end
+
+  def package_installed? python, module_name
+    quiet_system python, "-c", "import #{module_name}"
+  end
 
   def patches
     p = []
@@ -58,7 +78,11 @@ class Matplotlib < Formula
                 "'#{MacOS.sdk_path}/System/Library/Frameworks',"
     end
 
-    system "python", "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
+    Language::Python.each_python(build) do |python, version|
+      resource("pyparsing").stage { system python, "setup.py", "install" } unless package_installed? python, "pyparsing"
+      resource("python-dateutil").stage { system python, "setup.py", "install" } unless package_installed? python, "dateutil"
+      system python, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
+    end
   end
 
   def caveats
@@ -70,6 +94,8 @@ class Matplotlib < Formula
 
   test do
     ohai "This test takes quite a while. Use --verbose to see progress."
-    system "python", "-c", "import matplotlib as m; m.test()"
+    Language::Python.each_python(build) do |python, version|
+      system python, "-c", "import matplotlib as m; m.test()"
+    end
   end
 end
