@@ -7,6 +7,7 @@ class Scipy < Formula
   head 'https://github.com/scipy/scipy.git'
 
   depends_on :python => :recommended
+  depends_on :python3 => :optional
   depends_on 'numpy'
   depends_on 'swig' => :build
   depends_on :fortran
@@ -46,16 +47,20 @@ class Scipy < Formula
     end
 
     # The Accelerate.framework uses a g77 ABI
-    ENV.append 'FFLAGS', '-ff2c' unless build.with? 'openblas'
+    ENV.append 'FFLAGS', '-ff2c' if build.without? 'openblas'
 
     rm_f 'site.cfg' if build.devel?
     Pathname('site.cfg').write config
 
     # gfortran is gnu95
-    system "python", "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    Language::Python.each_python(build) do |python, version|
+      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    end
   end
 
   test do
-    system "python", "-c", "import scipy; scipy.test()"
+    Language::Python.each_python(build) do |python, version|
+      system python, "-c", "import scipy; scipy.test()"
+    end
   end
 end
