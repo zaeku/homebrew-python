@@ -19,14 +19,21 @@ class Numpy < Formula
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
-  depends_on 'nose' => :python
-  depends_on :python3 => 'nose' if build.with? 'python3'
   depends_on :fortran
   depends_on NoUserConfig
   depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
 
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => :optional
+
+  resource 'nose' do 
+    url 'https://pypi.python.org/packages/source/n/nose/nose-1.3.0.tar.gz'
+    sha1 'bd1bb889e421948ca57595e9e8d52246cb308294'
+  end
+
+  def package_installed? python, module_name
+    quiet_system python, "-c", "import #{module_name}"
+  end
 
   def install
     # Numpy is configured via a site.cfg and we want to use some libs
@@ -65,11 +72,16 @@ class Numpy < Formula
 
     # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
     # gfortran is gnu95
-    system "python", "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    Language::Python.each_python(build) do |python, version|
+      resource("nose").stage { system python, "setup.py", "install" } unless package_installed? python, "nose"
+      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+    end
   end
 
-  def test
-    system "python", "-c", "import numpy; numpy.test()"
+  test do
+    Language::Python.each_python(build) do |python, version|
+      system python, "-c", "import numpy; numpy.test()"
+    end
   end
 
   def caveats
