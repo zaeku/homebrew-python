@@ -26,7 +26,7 @@ class Numpy < Formula
   option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => :optional
 
-  resource 'nose' do 
+  resource 'nose' do
     url 'https://pypi.python.org/packages/source/n/nose/nose-1.3.0.tar.gz'
     sha1 'bd1bb889e421948ca57595e9e8d52246cb308294'
   end
