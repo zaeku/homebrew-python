@@ -41,8 +41,6 @@ Check main Homebrew [Troubleshooting](https://github.com/Homebrew/homebrew/wiki/
 
 We support Python 2.x and 3.x.
 
-_Note: Soon, we will deprecate the `--with-python3` switch and add formulae wiht `-py3` suffixes to support Python 3.x_
-
 
 ## How to add a new formulae here ##
 
