@@ -8,9 +8,14 @@ class Scipy < Formula
 
   depends_on :python => :recommended
   depends_on :python3 => :optional
-  depends_on 'numpy'
   depends_on 'swig' => :build
   depends_on :fortran
+
+  if build.with? "python3"
+    depends_on 'numpy' => 'with-python3'
+  else
+    depends_on 'numpy'
+  end
 
   option 'with-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
   depends_on 'homebrew/science/openblas' => :optional
