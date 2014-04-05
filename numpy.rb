@@ -27,8 +27,8 @@ class Numpy < Formula
   depends_on "homebrew/science/openblas" => :optional
 
   resource 'nose' do
-    url 'https://pypi.python.org/packages/source/n/nose/nose-1.3.0.tar.gz'
-    sha1 'bd1bb889e421948ca57595e9e8d52246cb308294'
+    url 'https://pypi.python.org/packages/source/n/nose/nose-1.3.1.tar.gz'
+    sha1 '19ba8f266a8ee4f128ef3eebf3c3e04e8ea7b998'
   end
 
   def package_installed? python, module_name
