@@ -34,7 +34,7 @@ class Matplotlib < Formula
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tcl-tk' => :optional
 
-  if build.with?("python3")
+  if build.with? "python3"
     depends_on 'numpy' => 'with-python3'
     depends_on 'pyside' => [:optional, 'with-python3']
     depends_on 'pyqt' => [:optional, 'with-python3']
