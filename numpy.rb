@@ -6,7 +6,7 @@ class NoUserConfig < Requirement
   end
 
   def message; <<-EOS.undent
-      A ~/.numpy-site.cfg has been detected, which may interfere with our business.
+      A ~/.numpy-site.cfg has been detected, which may interfere with brew's build.
     EOS
   end
 end
