@@ -34,7 +34,7 @@
 
 ## Troubleshooting ##
 
-Check main Homebrew [Troubleshooting](https://github.com/Homebrew/homebrew/wiki/Troubleshooting) page. Open an issue here.
+Check main Homebrew [Troubleshooting](https://github.com/Homebrew/homebrew/wiki/Troubleshooting) guide and then open an issue in this tap here.
 
 
 ## Python ##
