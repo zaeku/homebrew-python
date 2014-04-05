@@ -12,7 +12,7 @@ class Scipy < Formula
   depends_on 'swig' => :build
   depends_on :fortran
 
-  option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
+  option 'with-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
   depends_on 'homebrew/science/openblas' => :optional
 
   def install

@@ -23,7 +23,7 @@ class Numpy < Formula
   depends_on NoUserConfig
   depends_on 'homebrew/science/suite-sparse'  # for libamd and libumfpack
 
-  option 'with-openblas', "Use openBLAS (slower for LAPACK functions) instead of Apple's Accelerate Framework"
+  option 'with-openblas', "Use openBLAS instead of Apple's Accelerate Framework"
   depends_on "homebrew/science/openblas" => :optional
 
   resource 'nose' do
