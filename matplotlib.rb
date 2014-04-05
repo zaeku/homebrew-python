@@ -29,8 +29,6 @@ class Matplotlib < Formula
   depends_on TexRequirement => :optional
   depends_on 'cairo' => :optional
   depends_on 'ghostscript' => :optional
-  depends_on 'pygtk' => :optional
-  depends_on 'pygobject' if build.with? 'pygtk'
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
   depends_on 'homebrew/dupes/tcl-tk' => :optional
 
@@ -42,6 +40,8 @@ class Matplotlib < Formula
     depends_on 'numpy'
     depends_on 'pyside' => :optional
     depends_on 'pyqt' => :optional
+    depends_on 'pygtk' => :optional
+    depends_on 'pygobject' if build.with? 'pygtk'
   end
 
   resource 'pyparsing' do
