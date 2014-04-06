@@ -77,10 +77,12 @@ class Numpy < Formula
     Language::Python.each_python(build) do |python, version|
       resource("nose").stage do
         system python, "setup.py", "install", "--prefix=#{prefix}",
-                       "--single-version-externally-managed", "--record=installed.txt"
+                       "--single-version-externally-managed",
+                       "--record=installed.txt"
         mv prefix/"man", share
       end unless package_installed? python, "nose"
-      system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
+      system python, "setup.py", "build", "--fcompiler=gnu95", "install",
+                                          "--prefix=#{prefix}"
     end
   end
 
