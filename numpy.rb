@@ -73,7 +73,11 @@ class Numpy < Formula
     # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
     # gfortran is gnu95
     Language::Python.each_python(build) do |python, version|
-      resource("nose").stage { system python, "setup.py", "install" } unless package_installed? python, "nose"
+      resource("nose").stage do
+        system python, "setup.py", "install", "--prefix=#{prefix}",
+                       "--single-version-externally-managed", "--record=installed.txt"
+        mv prefix/"man", share
+      end unless package_installed? python, "nose"
       system python, "setup.py", "build", "--fcompiler=gnu95", "install", "--prefix=#{prefix}"
     end
   end
