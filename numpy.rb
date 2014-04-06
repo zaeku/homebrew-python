@@ -84,7 +84,4 @@ class Numpy < Formula
     end
   end
 
-  def caveats
-    "Numpy ignores the `FC` env var and looks for gfortran during build."
-  end
 end
