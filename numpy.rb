@@ -74,8 +74,6 @@ class Numpy < Formula
     rm_f 'site.cfg' if build.devel?
     Pathname('site.cfg').write config
 
-    # Numpy ignores FC and FCFLAGS, but we declare fortran so Homebrew knows
-    # gfortran is gnu95
     Language::Python.each_python(build) do |python, version|
       resource("nose").stage do
         system python, "setup.py", "install", "--prefix=#{prefix}",
