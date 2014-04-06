@@ -79,8 +79,19 @@ class Matplotlib < Formula
     end
 
     Language::Python.each_python(build) do |python, version|
-      resource("pyparsing").stage { system python, "setup.py", "install" } unless package_installed? python, "pyparsing"
-      resource("python-dateutil").stage { system python, "setup.py", "install" } unless package_installed? python, "dateutil"
+
+      resource("pyparsing").stage do
+        system python, "setup.py", "install", "--prefix=#{prefix}",
+                       "--single-version-externally-managed",
+                       "--record=installed.txt"
+      end unless package_installed? python, "pyparsing"
+
+      resource("python-dateutil").stage do
+        system python, "setup.py", "install",  "--prefix=#{prefix}",
+                       "--single-version-externally-managed",
+                       "--record=installed.txt"
+      end unless package_installed? python, "dateutil"
+
       system python, "setup.py", "install", "--prefix=#{prefix}", "--record=installed.txt", "--single-version-externally-managed"
     end
   end
