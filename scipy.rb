@@ -6,6 +6,11 @@ class Scipy < Formula
   sha1 '2c7d53fc1d7bfe0a3ab5818ef6d84cb5d8cfcca4'
   head 'https://github.com/scipy/scipy.git'
 
+  devel do
+    url 'https://downloads.sourceforge.net/project/scipy/scipy/0.14.0rc1/scipy-0.14.0rc1.tar.gz'
+    sha1 '07dd73a5f4eb2c9561bc6767e7ec8c24a1018456'
+  end
+
   depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on 'swig' => :build
