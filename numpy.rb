@@ -43,7 +43,7 @@ class Numpy < Formula
     # Numpy is configured via a site.cfg and we want to use some libs
     # For maintainers:
     # Check which BLAS/LAPACK numpy actually uses via:
-    # xcrun otool -L /usr/local/Cellar/numpy/1.6.2/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so
+    # xcrun otool -L $(brew --celar)/numpy/1.8.1/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so
     config = <<-EOS.undent
       [DEFAULT]
       library_dirs = #{HOMEBREW_PREFIX}/lib
@@ -79,7 +79,7 @@ class Numpy < Formula
         system python, "setup.py", "install", "--prefix=#{prefix}",
                        "--single-version-externally-managed",
                        "--record=installed.txt"
-        mv prefix/"man", share
+        mv prefix/"man", share  # Brew puts "man" into "share".
       end unless package_installed? python, "nose"
       system python, "setup.py", "build", "--fcompiler=gnu95", "install",
                                           "--prefix=#{prefix}"
