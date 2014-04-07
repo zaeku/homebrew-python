@@ -17,11 +17,7 @@ class Numpy < Formula
   sha1 '8fe1d5f36bab3f1669520b4c7d8ab59a21a984da'
   head 'https://github.com/numpy/numpy.git'
 
-  # We force to brew python (by giving a string to depends_on), because
-  # system python has severe bugs with current numpy/scipy leading to numerous
-  # failures of the scipy tests (though, numpy tests pass).
-  # Note, I use `to_s` to pass the `brew audit` here ;-)
-  depends_on :python.to_s => :recommended
+  depends_on :python => :recommended
   depends_on :python3 => :optional
   depends_on :fortran
   depends_on NoUserConfig
