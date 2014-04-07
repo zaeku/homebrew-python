@@ -56,7 +56,6 @@ class Scipy < Formula
 
     # The Accelerate.framework uses a g77 ABI
     ENV.append 'FFLAGS', '-ff2c' if build.without? 'openblas'
-    ENV.append 'CPPFLAGS', '-D__ACCELERATE__' unless build.with? 'openblas'
 
     rm_f 'site.cfg' if build.devel?
     Pathname('site.cfg').write config
