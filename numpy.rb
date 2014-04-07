@@ -88,4 +88,16 @@ class Numpy < Formula
     end
   end
 
+  def caveats
+    if build.with? "python" and not Formula['python'].installed?
+      <<-EOS.undent
+        If you use system python (that comes - depending on the OS X version -
+        with older versions of numpy, scipy and matplotlib), you actually may
+        have to set the `PYTHONPATH` in order to make the brewed packages come
+        before these shipped packages in Python's `sys.path`.
+            export PYTHONPATH=#{HOMEBREW_PREFIX}/lib/python2.7/site-packages
+      EOS
+    end
+  end
+
 end

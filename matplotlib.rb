@@ -99,6 +99,16 @@ class Matplotlib < Formula
       If you want to use the `wxagg` backend, do `brew install wxwidgets`.
       This can be done even after the matplotlib install.
     EOS
+    if build.with? "python" and not Formula['python'].installed?
+      s += <<-EOS.undent
+        If you use system python (that comes - depending on the OS X version -
+        with older versions of numpy, scipy and matplotlib), you actually may
+        have to set the `PYTHONPATH` in order to make the brewed packages come
+        before these shipped packages in Python's `sys.path`.
+            export PYTHONPATH=#{HOMEBREW_PREFIX}/lib/python2.7/site-packages
+      EOS
+    end
+    s
   end
 
   test do
