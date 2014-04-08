@@ -26,7 +26,7 @@ class Pydoop < Formula
   url 'https://downloads.sourceforge.net/project/pydoop/Pydoop-0.10/pydoop-0.10.0.tar.gz'
   sha1 '8e2bc6d69a6bf64350ca52b3b86df3f194df8512'
 
-  depends_on :python
+  depends_on :python => :recommended
   depends_on JdkInstalled
   depends_on JavaHome
   depends_on 'boost'

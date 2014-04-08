@@ -10,7 +10,7 @@ class Pygame < Formula
   sha1 'a45aeb0623e36ae7a1707b5f41ee6274f72ca4fa'
   head 'https://bitbucket.org/pygame/pygame', :using => :hg
 
-  depends_on :python
+  depends_on :python => :recommended
   depends_on 'sdl'
   depends_on 'sdl_image'
   depends_on 'sdl_mixer'

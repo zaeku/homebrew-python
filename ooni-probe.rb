@@ -5,6 +5,7 @@ class OoniProbe < Formula
   url 'https://github.com/TheTorProject/ooni-probe/archive/v0.0.10.tar.gz'
   sha1 '2028840ef0ccf1eab79012b3c7287b805e573eba'
 
+  depends_on :python => :recommended
   depends_on 'argparse' => :python
   depends_on 'docutils' => :python
   depends_on 'ipaddr' => :python

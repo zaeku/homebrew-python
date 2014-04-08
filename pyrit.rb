@@ -5,7 +5,7 @@ class Pyrit < Formula
   url 'https://pyrit.googlecode.com/files/pyrit-0.4.0.tar.gz'
   sha1 '3041c0d593c21df88f41416be872eca0997cf22b'
 
-  depends_on :python
+  depends_on :python => :recommended
   depends_on 'libdnet' => 'with-python'
   depends_on 'scapy'
 
