@@ -15,6 +15,25 @@ class TexRequirement < Requirement
   end
 end
 
+class NoExternalPyCXXPackage < Requirement
+  fatal false
+
+  satisfy do
+    not quiet_system "python", "-c", "import CXX"
+  end
+
+  def message; <<-EOS.undent
+    *** Warning, PyCXX detected! ***
+    On your system, there is already a PyCXX version installed, that will
+    probably make the build of Matplotlib fail. In python you can test if that
+    package is availbale with `import CXX`. To get a hint where that package
+    is installed, you can:
+        python -c "import os; import CXX; print(os.path.dirname(CXX.__file__))"
+    See also: https://github.com/Homebrew/homebrew-python/issues/56
+    EOS
+  end
+end
+
 class Matplotlib < Formula
   homepage 'http://matplotlib.org'
   url 'https://downloads.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.3.1/matplotlib-1.3.1.tar.gz'
@@ -27,6 +46,7 @@ class Matplotlib < Formula
   depends_on :freetype
   depends_on :libpng
   depends_on TexRequirement => :optional
+  depends_on NoExternalPyCXXPackage
   depends_on 'cairo' => :optional
   depends_on 'ghostscript' => :optional
   # On Xcode-only Macs, the Tk headers are not found by matplotlib
