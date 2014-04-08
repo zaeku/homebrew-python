@@ -62,7 +62,7 @@ class Scipy < Formula
       ENV.append 'FFLAGS', '-ff2c'
       # https://github.com/Homebrew/homebrew-python/pull/73
       # Only save for gcc and allows you to `brew install scipy --cc=gcc-4.8`
-      ENV.append 'CPPFLAGS', '-D__ACCELERATE__' if ENV.compiler == :gcc
+      ENV.append 'CPPFLAGS', '-D__ACCELERATE__' if ENV.compiler =~ /gcc-(4\.[3-9])/
     end
 
     rm_f 'site.cfg' if build.devel?
