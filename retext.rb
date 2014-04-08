@@ -11,24 +11,23 @@ class Retext < Formula
   depends_on 'markups' => :python
   depends_on 'markdown' => :python
   depends_on 'docutils' => :python
-  depends_on 'enchant' => "with-python"
+  depends_on 'enchant'
+  # depends_on LanguageModuleDependency.new(:python, 'pyenchant', 'enchant')
 
-  resource 'retext_icons' do
+  resource 'retext' do
     url 'https://downloads.sourceforge.net/project/retext/Icons/ReTextIcons_r3.tar.gz'
     sha1 'c51d4a687c21b7de3fd24a14a7ae16e9b0869e31'
   end
 
   def install
-    Language::Python.each_python(build) do |python, version|
-      system python, "setup.py", "install", "--prefix=#{prefix}"
+    system "python", "setup.py", "install", "--prefix=#{prefix}"
 
-      # Copy icons to correct place an fix the path
-      target_dir = lib/"python#{version}/site-packages/ReText"
-      resource('retext_icons').stage { (target_dir/"icons/").install Dir['*.*'] }
-      inreplace target_dir/'__init__.py',
-                'icon_path = "icons/"',
-                "icon_path = '#{target_dir}/icons/'"
-    end
+    # Copy icons to correct place an fix the path
+    icons_dir = lib/python.xy/'site-packages/ReText/icons/'
+    resource('retext').stage { icons_dir.install Dir['*.*'] }
+    inreplace lib/python.xy/'site-packages/ReText/__init__.py',
+              'icon_path = "icons/"',
+              "icon_path = '#{lib}python2.7/site-packages/ReText/icons/'"
   end
 
   def caveats
