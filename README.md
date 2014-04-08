@@ -1,6 +1,6 @@
 # Overview #
 
-[Homebrew](http://brew.sh)-formulae to install **Python** libraries, which are not yet well supported by `pip install` due to compiler and dependency issues.
+[Homebrew](http://brew.sh)-formulae to install **Python** 2.x and 3.x libraries, which are not yet well supported by `pip install` due to compiler and dependency issues.
 
 ## Why not pip? ##
 
@@ -40,6 +40,8 @@ Check main Homebrew [Troubleshooting](https://github.com/Homebrew/homebrew/wiki/
 ## Python ##
 
 We support Python 2.x and 3.x.
+For simultaneous support, use the `brew install <formula> --with-python3`. And if you don't need Python 2.x support at all:
+`brew install <formula> --with-python3 --without-python`
 
 
 ## How to add a new formulae here ##
