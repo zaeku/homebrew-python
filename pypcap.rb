@@ -9,7 +9,7 @@ class Pypcap < Formula
   url 'https://github.com/hellais/pypcap/archive/v1.1.1.tar.gz'
   sha1 '8e1669da927c3cdaa03204d4afa9a88707a19756'
 
-  depends_on :python => :recommended
+  depends_on :python
   depends_on 'Pyrex' => :python
 
   def install

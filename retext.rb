@@ -6,7 +6,7 @@ class Retext < Formula
   # 4.1 will drop python 2.x support!
   sha1 '4a2ada905d790b4d8f3709271945008f50cd4d06'
 
-  depends_on :python => :recommended
+  depends_on :python
   depends_on 'pyqt'
   depends_on 'markups' => :python
   depends_on 'markdown' => :python
